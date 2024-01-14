@@ -66,8 +66,9 @@ defineProps({
         </div>
 
 
-        <button v-if="$page.props.user.permissions.include('create roles')">Create Roles</button>
-        <button v-if="$page.props.user.permissions.include('create products')">Create New Products</button>
+        <button v-if="$page.props.user && $page.props.user.permissions.include('create roles')">Create Roles</button>
+        <button v-if="$page.props.user && $page.props.user.permissions.include('create products')">Create New Products</button>
+
     </div>
 </template>
 

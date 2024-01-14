@@ -10,7 +10,7 @@ class HomeController extends Controller
     public function index()
     {
         return Inertia::render('Welcome', [
-            'laravelVersion' => '10.x',
+            'laravelVersion' => '10.0.0',
             'phpVersion' => '8.2.4',
         ]);
     }

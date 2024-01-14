@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', [HomeController::class, 'index']);
+
 
 
