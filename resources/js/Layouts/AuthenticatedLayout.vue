@@ -33,6 +33,50 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                             </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions.include('read categories')">
+                                <NavLink :href="route('categories.index')" :active="route().current('categories.*')">
+                                    Categories
+                                </NavLink>
+                            </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions.include('read products')">
+                                <NavLink :href="route('productos.index')" :active="route().current('productos.*')">
+                                    Productos
+                                </NavLink>
+                            </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions.include('read suppliers')">
+                                <NavLink :href="route('proveedores.index')" :active="route().current('proveedores.*')">
+                                    Proveedores
+                                </NavLink>
+                            </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions.include('read sales')">
+                                <NavLink :href="route('ventas.index')" :active="route().current('ventas.*')">
+                                    Ventas
+                                </NavLink>
+                            </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions.include('read stock')">
+                                <NavLink :href="route('stock.index')" :active="route().current('stock.*')">
+                                  Stock
+                                </NavLink>
+                            </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions.include('read payment')">
+                                <NavLink :href="route('pagos.index')" :active="route().current('pagos.*')">
+                                    Pagos
+                                </NavLink>
+                            </div>
+
+                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex" v-if="$page.props.user && $page.props.user.permissions.include('read roles')">
+                                <NavLink :href="route('roles.index')" :active="route().current('roles.*')">
+                                    Roles
+                                </NavLink>
+                            </div>
+
+                         
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -114,6 +158,48 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="pt-2 pb-3 space-y-1"  v-if="$page.props.user && $page.props.user.permissions.include('read categories')">
+                        <ResponsiveNavLink :href="route('categories.index')" :active="route().current('categories.*')">
+                            Categories
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="pt-2 pb-3 space-y-1" v-if="$page.props.user && $page.props.user.permissions.include('read products')">
+                        <ResponsiveNavLink :href="route('productos.index')" :active="route().current('productos.*')">
+                            Productos
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="pt-2 pb-3 space-y-1" v-if="$page.props.user && $page.props.user.permissions.include('read suppliers')">
+                        <ResponsiveNavLink :href="route('proveedores.index')" :active="route().current('proveedores.*')">
+                            Proveedores
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="pt-2 pb-3 space-y-1" v-if="$page.props.user && $page.props.user.permissions.include('read sales')">
+                        <ResponsiveNavLink :href="route('ventas.index')" :active="route().current('ventas.*')">
+                            Ventas
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="pt-2 pb-3 space-y-1" v-if="$page.props.user && $page.props.user.permissions.include('read payment')">
+                        <ResponsiveNavLink :href="route('pagos.index')" :active="route().current('pagos.*')">
+                            Pagos
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="pt-2 pb-3 space-y-1" v-if="$page.props.user && $page.props.user.permissions.include('read stock')">
+                        <ResponsiveNavLink :href="route('stock.index')" :active="route().current('stock.*')">
+                            Stock
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="pt-2 pb-3 space-y-1" v-if="$page.props.user && $page.props.user.permissions.include('read roles')">
+                        <ResponsiveNavLink :href="route('roles.index')" :active="route().current('roles.*')">
+                           Roles
                         </ResponsiveNavLink>
                     </div>
 

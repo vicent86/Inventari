@@ -2,58 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoriaRequest;
 use App\Models\Categoria;
-use App\Models\Producto;
-use Inertia\Inertia;
 
 class CategoriaController extends Controller
 {
+    const NUMBER_OF_ITEMS_PER_PAGE = 25;
     public function index()
     {
-        return Inertia::render('Categoria/Categoria');
-    }
-
-    public function CategoriaLista(Request $request)
-    {
-        $categorias = Categoria::orderBy('id','desc');
-
-        if ($request->name != '') {
-            $categorias->where('nombre', 'LIKE', '%'. $request->name . '%');
-        }
-
-        $categorias = $categorias->paginate(10);
-
-        return $categorias;
-    }
-
-    public function TodasLasCategorias()
-    {
-        $categoria = Categoria::all();
-
-        return $categoria;
+        $categories = Categoria::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
+        return inertia('Categories/Index', ['categories' => $categories]);
     }
 
     public function create()
     {
-        //
+        return inertia('Categories/Create');
     }
-    public function store(Request $request)
+    
+    public function store(CategoriaRequest $request)
     {
-        $request->validate([
-            'nombre'=> 'required|unique:categories',
-        ]);
-
-        try {
-            $category = new Categoria;
-            $category->nombre = $request->nombre;
-            $category->save();
-            return response()->json(['status' => 'success', 'message' => 'Categoría Agregada']);
-
-        } catch (\Exception $e) {
-            return response()->json(['status'=> 'error', 'message' => 'Algo salio mal!']);
-
-        }
+       Categoria::create($request->validated());
+       return redirect()->route('categories.index');
     }
     public function show(Categoria $categoria)
     {
@@ -61,35 +30,16 @@ class CategoriaController extends Controller
     }
     public function edit(Categoria $categoria)
     {
-        return $categoria;
+       return inertia('Categories/Edit', ['category' =>$categoria]);
     }
-    public function update(Request $request, $id)
+    public function update(CategoriaRequest $request, Categoria $categoria)
     {
-        $request->validate([
-            'nombre'=> 'required|unique:categories,name,'. $id,
-        ]);
-        try {
-            $category = Categoria::find($id);
-            $category->nombre = $request->nombre;
-            $category->update();
-            return response()->json(['status'=> 'success','message'=> 'Categoría actualizada']);
-        } catch (\Exception $e) {
-            return response()->json(['status'=> 'error', 'message' => 'Algo salio mal!']);
-        }
+        $categoria->update($request->validated());
+        return redirect()->route('categories.index');
     }
-    public function destroy($id)
+    public function destroy(Categoria $categoria)
     {
-        $category = Categoria::find($id);
-        $check = Producto::where('categoria_id', '=', $category->id)->count();
-        if ($check > 0) {
-            return response()->json(['status'=> 'error','message'=> 'Esta categoría no esta vacía, debe eliminar primero los productos']);
-        }
-        try {
-            $category->delete();
-            return response()->json(['status'=> 'success','message'=> 'Categoría eliminada']);
-        } catch (\Exception $e) {
-
-            return response()->json(['status'=> 'error', 'message' => 'Algo salio mal!']);
-        }
+        $categoria->delete();
+        return redirect()->route('categories.index');
     }
 }

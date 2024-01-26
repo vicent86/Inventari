@@ -26,10 +26,17 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import vuePlugin from "@vitejs/plugin-vue";
+import path from 'path';
 
 export default defineConfig ({
   plugins: [
     laravel(['resources/js/app.js']),
     vuePlugin(),
   ],
+
+  resolve: {
+    alias: {
+      ziggy: path.resolve(__dirname, "vendor/tightenco/ziggy/dist"),
+    },
+  }
 });

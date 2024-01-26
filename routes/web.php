@@ -1,8 +1,17 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PagoController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\Venta_DetallesController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +24,22 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+//Rutas no autenticadas
 
+Route::get('/', [DashboardController::class, 'index']);
+
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
+    //Rutas autenticadas
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::resource('/categories', CategoriaController::class);
+    Route::resource('/clientes', ClienteController::class);
+    Route::resource('/pagos', PagoController::class);
+    Route::resource('/productos', ProductoController::class);
+    Route::resource('/proveedores', ProveedorController::class);
+    Route::resource('/roles', RoleController::class);
+    Route::resource('/stock', StockController::class);
+    Route::resource('/venta_detalles', Venta_DetallesController::class);
+    Route::resource('/ventas', VentaController::class);
+});
 
 

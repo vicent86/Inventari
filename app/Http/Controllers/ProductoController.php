@@ -10,58 +10,59 @@ use Inertia\Inertia;
 
 class ProductoController extends Controller
 {
+    const NUMBER_OF_ITEMS_PER_PAGE = 25;
     public function index()
     {
-
-
-        $categoria = Categoria::orderBy('nombre', 'asc')->get();
-        return Inertia::render('Producto/Producto', ['Categoria' => $categoria]);
+        $productos = Producto::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
+        return inertia('Productos/Index', ['productos' => $productos]);
 
     }
 
     public function create()
     {
-        //
+        $categories = Categoria::all();
+        $stock = Stock::all();
+        return inertia('Productos/Create', ['categorias' => $categories, 'stock' => $stock]);
     }
 
 
-    public function ProductoLista(Request $request)
-    {
+    // public function ProductoLista(Request $request)
+    // {
 
 
-        $producto = Producto::with([
-            'Categoria' => function ($query) {
-                $query->select('id', 'nombre');
-            }
-        ])->orderBy('nombre', 'asc');
+    //     $producto = Producto::with([
+    //         'Categoria' => function ($query) {
+    //             $query->select('id', 'nombre');
+    //         }
+    //     ])->orderBy('nombre', 'asc');
 
-        $nombre = $request->nombre;
+    //     $nombre = $request->nombre;
 
-        if ($nombre != '') {
+    //     if ($nombre != '') {
 
-            $producto->where('nombre', 'LIKE', '%' . $nombre . '%');
+    //         $producto->where('nombre', 'LIKE', '%' . $nombre . '%');
 
-        }
+    //     }
 
-        if ($request->cat != '') {
+    //     if ($request->cat != '') {
 
-            $producto->where('categoria_id', '=', $request->cat);
+    //         $producto->where('categoria_id', '=', $request->cat);
 
-        }
+    //     }
 
-        $producto = $producto->paginate(10);
+    //     $producto = $producto->paginate(10);
 
-        return $producto;
-    }
+    //     return $producto;
+    // }
 
-    public function productoPorCategoria($id)
-    {
+    // public function productoPorCategoria($id)
+    // {
 
-        $producto = Producto::where('categoria_id', '=', $id)->get();
+    //     $producto = Producto::where('categoria_id', '=', $id)->get();
 
-        return $producto;
+    //     return $producto;
 
-    }
+    // }
 
     public function store(Request $request)
     {

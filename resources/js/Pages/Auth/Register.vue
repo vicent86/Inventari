@@ -11,7 +11,6 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
-    role: '',
 });
 
 const submit = () => {
@@ -87,20 +86,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="role" value="Rol" />
-
-                <select id="role" v-model="form.role" class="mt-1 block w-full">
-                    <option disabled value="">Por favor selecciona un rol</option>
-                    <option>Admin</option>
-                    <option>Gerente</option>
-                    <option>Empleado</option>
-                </select>
-
-                <InputError class="mt-2" :message="form.errors.role" />
-            </div>
-
-
+           
             <div class="flex items-center justify-end mt-4">
                 <Link
                     :href="route('login')"
