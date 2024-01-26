@@ -4,80 +4,58 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Proveedor;
-use Inertia\Inertia;
+use App\Http\Requests\ProveedorRequest;
 
 class ProveedorController extends Controller
 {
+    const NUMBER_OF_ITEMS_PER_PAGE = 25;
     public function index()
     {
-
-
-        return Inertia::render('Proveedor/Proveedor');
-
-
+        $proveedores = Proveedor::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
+        return inertia('Proveedores/Index', ['proveedores' => $proveedores]);
     }
 
-    public function Proveedor(Request $request)
-    {
+    // public function Proveedor(Request $request)
+    // {
 
 
-        $proveedor = Proveedor::orderBy('id', 'desc');
+    //     $proveedor = Proveedor::orderBy('id', 'desc');
 
-        if ($request->nombre != '') {
+    //     if ($request->nombre != '') {
 
-            $proveedor->where('nombre', 'LIKE', '%' . $request->nombre . '%');
-        }
+    //         $proveedor->where('nombre', 'LIKE', '%' . $request->nombre . '%');
+    //     }
 
-        if ($request->email != '') {
+    //     if ($request->email != '') {
 
-            $proveedor->where('email', 'LIKE', '%' . $request->email . '%');
-        }
+    //         $proveedor->where('email', 'LIKE', '%' . $request->email . '%');
+    //     }
 
-        if ($request->telefono != '') {
+    //     if ($request->telefono != '') {
 
-            $proveedor->where('telefono', 'LIKE', '%' . $request->telefono . '%');
-        }
+    //         $proveedor->where('telefono', 'LIKE', '%' . $request->telefono . '%');
+    //     }
 
-        if ($request->direccion != '') {
+    //     if ($request->direccion != '') {
 
-            $proveedor->where('direccion', 'LIKE', '%' . $request->direccion . '%');
-        }
+    //         $proveedor->where('direccion', 'LIKE', '%' . $request->direccion . '%');
+    //     }
 
-        $proveedor = $proveedor->paginate(10);
+    //     $proveedor = $proveedor->paginate(10);
 
-        return $proveedor;
-    }
+    //     return $proveedor;
+    // }
 
     public function create()
     {
-        //
+        return inertia('Proveedores/Create');
     }
 
-    public function store(Request $request)
+    public function store(ProveedorRequest $request)
     {
 
-        $request->validate([
-            'nombre' => 'required',
-            'email' => 'nullable|unique:proveedores',
-            'telefono' => 'required|unique:proveedores',
-            'direccion'=> 'required|unique:proveedores',
-        ]);
-
-
-        try {
-            $proveedor = new Proveedor;
-            $proveedor->nombre = $request->nombre;
-            $proveedor->email = $request->email;
-            $proveedor->telefono = $request->telefono;
-            $proveedor->direccion = $request->direccion;
-
-            $proveedor->save();
-
-            return response()->json(['status' => 'success', 'message' => 'Proveedor creado']);
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => '¡Se ha encontrado un error! Vuelva a intentarlo.']);
-        }
-
+        Proveedor::create($request->validated());
+        return redirect()->route('proveedores.index');
 
     }
 
@@ -87,49 +65,20 @@ class ProveedorController extends Controller
     }
     public function edit(Proveedor $proveedor)
     {
-        return $proveedor;
+        return inertia('Proveedores/Edit', ['proveedor' =>$proveedor]);
     }
 
-    public function update(Request $request, $id)
+    public function update(ProveedorRequest $request, Proveedor $proveedor)
     {
-
-        $request->validate([
-            'nombre' => 'required',
-            'email' => 'nullable',
-            'telefono' => 'required'
-        ]);
-
-        try {
-
-            $supplier = Proveedor::find($id);
-            $supplier->nombre = $request->nombre;
-            $supplier->email = $request->email;
-            $supplier->telefono = $request->telefono;
-            $supplier->direccion = $request->direccion;
-
-            $supplier->update();
-
-            return response()->json(['status' => 'success', 'message' => 'Proveedor actualizado']);
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => '¡Se ha encontrado un error! Vuelva a intentarlo.']);
-        }
+        $proveedor->update($request->validated());
+        return redirect()->route('proveedores.index');
     }
 
-    public function destroy($id)
+    public function destroy(Proveedor $proveedor)
     {
 
-        try {
-
-            $data = Proveedor::find($id);
-
-            $data->delete();
-
-            return response()->json(['status' => 'success', 'message' => 'Proveedor eliminado']);
-
-
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => '¡Se ha encontrado un error! Vuelva a intentarlo.']);
-        }
+        $proveedor->delete();
+        return redirect()->route('proveedores.index');
 
     }
 }

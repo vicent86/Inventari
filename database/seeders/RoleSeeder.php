@@ -45,6 +45,11 @@ class RoleSeeder extends Seeder
         $permission_update_sale = Permission::create(['name' => 'update sales']);
         $permission_delete_sale = Permission::create(['name' => 'delete sales']);
 
+        $permission_create_sale_details = Permission::create(['name' => 'create sales_details']);
+        $permission_read_sale_details = Permission::create(['name' => 'read sales_details']);
+        $permission_update_sale_details = Permission::create(['name' => 'update sales_details']);
+        $permission_delete_sale_details = Permission::create(['name' => 'delete sales_details']);
+
         $permission_create_stock = Permission::create(['name' => 'create stock']);
         $permission_read_stock = Permission::create(['name' => 'read stock']);
         $permission_update_stock = Permission::create(['name' => 'update stock']);
@@ -82,6 +87,11 @@ class RoleSeeder extends Seeder
             $permission_update_sale,
             $permission_delete_sale,
 
+            $permission_create_sale_details,
+            $permission_read_sale_details,
+            $permission_update_sale_details,
+            $permission_delete_sale_details,
+
             $permission_create_stock,
             $permission_read_stock,
             $permission_update_stock,
@@ -114,6 +124,11 @@ class RoleSeeder extends Seeder
             $permission_read_sale,
             $permission_update_sale,
             $permission_delete_sale,
+
+            $permission_create_sale_details,
+            $permission_read_sale_details,
+            $permission_update_sale_details,
+            $permission_delete_sale_details,
 
             $permission_create_stock,
             $permission_read_stock,

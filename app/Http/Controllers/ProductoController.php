@@ -66,25 +66,8 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required|unique:productos,nombre',
-            'Categoria' => 'required',
-        ]);
-
-        try {
-
-            $product = new Producto();
-
-            $product->categoria_id = $request->categoria;
-            $product->producto_nombre = $request->nombre;
-            $product->descripcion = $request->descripcion;
-
-            $product->save();
-
-            return response()->json(['status' => 'success', 'message' => 'Producto agregado']);
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => 'Algo salió mal! Por favor, vuelva a intentarlo']);
-        }
+        Producto::create($request->validated());
+        return redirect()->route('Producto.index');
     }
 
     public function show(Producto $producto)
@@ -94,63 +77,20 @@ class ProductoController extends Controller
 
     public function edit(Producto $producto)
     {
-        return $producto;
+        return inertia('Productos/Edit', ['producto' =>$producto]);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Producto $producto)
     {
-        $request->validate([
-            'nombre' => 'required',
-            'Categoria' => 'required',
-        ]);
-
-
-        try {
-
-            $product = Producto::find($id);
-            $product->categoria_id = $request->categoria;
-            $product->nombre = $request->nombre;
-            $product->descripcion = $request->descripcion;
-
-            $product->update();
-
-            return response()->json(['status' => 'success', 'message' => 'Producto actualizado']);
-        } catch (\Exception $e) {
-            return response()->json(['status' => 'error', 'message' => 'Algo salió mal! Por favor, vuelva a intentarlo']);
-        }
+        $producto->update($request->validated());
+        return redirect()->route('productos.index');
     }
 
     // Borrar producto
 
-    public function destroy($id)
+    public function destroy(Producto $producto)
     {
-
-
-        $product = Producto::find($id);
-
-        $check = Stock::where('producto_id', '=', $product->id)->count();
-
-
-        if ($check > 0) {
-
-            return response()->json(['status' => 'error', 'message' => 'Primero debe eliminar las existencias del producto']);
-
-
-        } else {
-
-
-            try {
-
-                $product->delete();
-
-                return response()->json(['status' => 'success', 'message' => 'Producto eliminado']);
-
-            } catch (\Exception $e) {
-
-                return response()->json(['status' => 'error', 'message' => 'Algo salió mal! Por favor, vuelva a intentarlo']);
-            }
-
-        }
-
+        $producto->delete();
+        return redirect()->route('productos.index');
     }
 }

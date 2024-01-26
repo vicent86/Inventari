@@ -29,6 +29,10 @@
                 <InputLabel for="precio" value="Precio" />
                 <TextInput id="precio" v-model="form.precio" type="text" autocomplete="precio" class="mt-1 block w-full" />
                 <InputError :message="$page.props.errors.precio" class="mt-2" />
+
+                <InputLabel for="iva" value="IVA" />
+                <TextInput id="iva" v-model="form.precio" type="text" autocomplete="iva" class="mt-1 block w-full" />
+                <InputError :message="$page.props.errors.iva" class="mt-2" />
                 
                 <InputLabel for="category_id" value="Category" />
                 <select name="category_id" id="category_id">
@@ -36,6 +40,7 @@
                 </select>
                 <InputError :message="$page.props.errors.category_id" class="mt-2" />
 
+                <CollectionSelector :collection="proveedores"></CollectionSelector>
 
             </div>
         </template>
@@ -61,7 +66,7 @@ import InputLabel from '@/Components/InputLabel.vue'
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import TextInput from '@/Components/TextInput.vue'
 import SecondaryButton from '@/Components/SecondaryButton.vue'
-
+import CollectionSelector from '../Common/CollectionSelector.vue'
     
 defineProps({
 
