@@ -37,6 +37,3 @@ const form = useForm({
 })
 </script>
 
-<style>
-
-</style>

@@ -35,6 +35,6 @@ const props = defineProps ({
 
 const form = useForm({
     name: props.role.name,
-   
+});
 </script>
 

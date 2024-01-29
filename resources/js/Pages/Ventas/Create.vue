@@ -28,7 +28,7 @@ export default {
 <script setup>
 import { useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
-import VentaForm from '../../Components/Ventas/Form'
+import VentaForm from '../../Components/Ventas/Form.vue';
 
 defineProps({
     clientes: {

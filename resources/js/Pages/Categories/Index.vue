@@ -33,7 +33,7 @@
                                 class="hidden shrink-0 sm:flex sm:flex-col sm:items-end"
                             >
                                 <p class="text-md leading-6 text-gray-900">
-                                    <Link class="py-2 px-4 text-green-600" :href="route('categories.edit', category.id)" v-if="$page.props.user && $page.props.user.permissions.include('update categories')">Editar</Link> 
+                                    <Link class="py-2 px-4 text-green-600" :href="route('categories.edit', category.id)" v-if="$page.props.user && $page.props.user.permissions.include('update categories')">Editar</Link>
                                     <Link class="py-2 px-4 text-red-600" @click="deleteCategory(category.id)" v-if="$page.props.user && $page.props.user.permissions.include('delete categories')">Borrar</Link>
                                 </p>
                             </div>
@@ -63,8 +63,8 @@ export default {
 </script>
 
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import AuthenticatedLayout from "../../Layouts/AuthenticatedLayout.vue";
+import { Link } from "@inertiajs/vue3";
 import { Inertia } from "@inertiajs/inertia";
 
 defineProps ({
@@ -73,7 +73,9 @@ defineProps ({
         required: true,
     }
 })
-const deleteCategory = id =>{
+
+
+const deleteCategory = id => {
     if (confirm("¿Está seguro de eliminar esta categoría?")) {
         Inertia.delete(route('categories.destroy', id))
     }

@@ -44,12 +44,12 @@ export default {
 </script>
 
 <script setup>
-import FormSection from '@/Components/FormSection.vue'
-import InputError from '@/Componments/InputError.vue'
-import InputLabel from '@/Components/InputLabel.vue'
-import PrimaryButton from '@/Components/PrimaryButton.vue'
-import TextInput from '@/Components/TextInput.vue'
-import CollectionSelector from '../Common/CollectionSelector.vue'
+import FormSection from '../../Components/FormSection.vue'
+import InputError from '../../Components/InputError.vue'
+import InputLabel from '../../Components/InputLabel.vue'
+import PrimaryButton from '../../Components/PrimaryButton.vue'
+import TextInput from '../../Components/TextInput.vue'
+import CollectionSelector from '../../Components/Common/CollectionSelector.vue'
     
 defineProps({
 
