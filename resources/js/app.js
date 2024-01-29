@@ -2,7 +2,7 @@ import { createApp, h } from 'vue';
 // import { App, plugin } from '@inertiajs/inertia-vue3';
 // import Welcome from './Pages/Welcome.vue';
 // import { Ziggy } from './ziggy';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
+import { createInertiaApp } from '@inertiajs/vue3';
 import route from "ziggy-js";
 import { InertiaProgress } from '@inertiajs/progress';
 
