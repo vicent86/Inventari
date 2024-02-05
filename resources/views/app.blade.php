@@ -12,9 +12,7 @@
 
         <!-- Scripts -->
         @routes
-        {{-- @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
-        @inertiaHead --}}
-        <script src="{{ mix('resources/js/app.js') }}" type="module" defer></script>
+        <script src="{{ asset('js/app.js') }}" type="module" defer></script>
     </head>
     <body class="font-sans antialiased">
        @inertia

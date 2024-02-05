@@ -23,8 +23,8 @@ export default {
 
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue'
-import RoleForm from '../../Components/Roles/Form.vue'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import RoleForm from '@/Components/Roles/Form.vue'
 
 const props = defineProps ({
     role : {

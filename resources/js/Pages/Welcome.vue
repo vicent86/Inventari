@@ -16,11 +16,24 @@ defineProps({
         type: String,
         required: true,
     },
+    jetstream: {
+        type: Object,
+        required: true,
+    },
+    auth: {
+        type: Object,
+        required: true,
+    },
+    errorBags: {
+        type: Array,
+        required: true,
+    },
 });
+
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Bienvenid@ al Sistema de Inventario" />
     <div
         class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
     >
@@ -36,24 +49,25 @@ defineProps({
                 <Link
                     :href="route('login')"
                     class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                    >Login</Link
+                    >Log In</Link>
                 >
 
                 <Link
                     v-if="canRegister"
                     :href="route('register')"
                     class="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                    >Register</Link
+                    >Register</Link>
                 >
             </template>
         </div>
 
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <div class="flex justify-center">
-               {{ $page.props }}
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold mt-4">Nombre de la empresa</h1>
+                    <p class="text-xl mt-2">Sistema de Inventario</p>
+                </div>
             </div>
-
         </div>
     </div>
 </template>
-

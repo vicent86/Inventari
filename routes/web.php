@@ -11,6 +11,8 @@ use App\Http\Controllers\Venta_DetallesController;
 use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use Laravel\Fortify\Fortify;
+use Inertia\Inertia;
 
 
 /*
@@ -27,6 +29,15 @@ use App\Http\Controllers\DashboardController;
 //Rutas no autenticadas
 
 Route::get('/', [DashboardController::class, 'index']);
+
+Fortify::loginView(function () {
+    return Inertia::render('Auth/Login');
+});
+
+Fortify::registerView(function () {
+    return Inertia::render('Auth/Register');
+});
+
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     //Rutas autenticadas

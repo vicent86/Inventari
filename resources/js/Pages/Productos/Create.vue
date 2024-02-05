@@ -27,8 +27,8 @@ export default {
 
 <script setup>
 import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
-import ProductoForm from '../../Components/Productos/Form.vue'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import ProductoForm from '@/Components/Productos/Form.vue'
 
 defineProps({
     categories: {
