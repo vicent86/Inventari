@@ -16,25 +16,29 @@
 </template>
 
 <script>
-export default {
-    name: 'RoleEdit'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const RoleForm = require('@/Components/Roles/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import RoleForm from '@/Components/Roles/Form.vue'
-
-const props = defineProps ({
-    role : {
-        type : Object,
-        required : true
+module.exports =  {
+    name: 'RoleEdit',
+    components : {
+        AuthenticatedLayout,
+        RoleForm
+    },
+    props: {
+        role : {
+            type : Object,
+            required : true
+        }
+    },
+    setup() {
+        const form = useForm({
+            name: props.role.name,
+        });
+        return { form };
     }
-});
+};
 
-const form = useForm({
-    name: props.role.name,
-});
 </script>
 

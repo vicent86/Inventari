@@ -15,37 +15,7 @@ class ProveedorController extends Controller
         return inertia('Proveedores/Index', ['proveedores' => $proveedores]);
     }
 
-    // public function Proveedor(Request $request)
-    // {
-
-
-    //     $proveedor = Proveedor::orderBy('id', 'desc');
-
-    //     if ($request->nombre != '') {
-
-    //         $proveedor->where('nombre', 'LIKE', '%' . $request->nombre . '%');
-    //     }
-
-    //     if ($request->email != '') {
-
-    //         $proveedor->where('email', 'LIKE', '%' . $request->email . '%');
-    //     }
-
-    //     if ($request->telefono != '') {
-
-    //         $proveedor->where('telefono', 'LIKE', '%' . $request->telefono . '%');
-    //     }
-
-    //     if ($request->direccion != '') {
-
-    //         $proveedor->where('direccion', 'LIKE', '%' . $request->direccion . '%');
-    //     }
-
-    //     $proveedor = $proveedor->paginate(10);
-
-    //     return $proveedor;
-    // }
-
+    
     public function create()
     {
         return inertia('Proveedores/Create');

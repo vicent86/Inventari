@@ -59,25 +59,32 @@
 </template>
 
 <script>
-export default {
+const AuthenticatedLayout = require("@/Layouts/AuthenticatedLayout.vue");
+const { Link } = require("@inertiajs/vue3");
+const { Inertia } = require("@inertiajs/inertia");
+
+module.exports = {
     name: "stocksIndex",
+    components: {
+        AuthenticatedLayout,
+        Link
+    },
+    props: {
+        stocks: {
+            type: Object,
+            required: true,
+        }
+    },
+
+    methods: {
+        
+        deleteStock (id) {
+            if (confirm("¿Está seguro de eliminar este stock?")) {
+            Inertia.delete(route('stocks.destroy', id))
+            }
+        }
+    }
 };
-</script>
 
-<script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Link } from "@inertiajs/vue3";
-import { Inertia } from "@inertiajs/inertia";
 
-defineProps ({
-    stocks: {
-        type: Object,
-        required: true,
-    }
-})
-const deleteStock = id =>{
-    if (confirm("¿Está seguro de eliminar este stock?")) {
-        Inertia.delete(route('stocks.destroy', id))
-    }
-}
 </script>

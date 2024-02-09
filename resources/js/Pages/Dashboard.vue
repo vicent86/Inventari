@@ -1,6 +1,6 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const { Head } = require('@inertiajs/vue3');
 </script>
 
 <template>

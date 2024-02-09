@@ -57,27 +57,31 @@
 </template>
 
 <script>
-export default {
+const AuthenticatedLayout = require("@/Layouts/AuthenticatedLayout.vue");
+const { Link } = require("@inertiajs/vue3");
+const { Inertia } = require("@inertiajs/inertia");
+
+module.exports = {
     name: "CategoriesIndex",
+    components: {
+        AuthenticatedLayout,
+        Link
+    },
+    props: {
+        categories: {
+            type: Object,
+            required: true,
+        }   
+    },
+
+    methods: {
+        deleteCategory (id) {
+            if (confirm("¿Está seguro de eliminar esta categoría?")) {
+                Inertia.delete(route('categories.destroy', id));
+            }
+        }
+    }
 };
-</script>
-
-<script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Link } from "@inertiajs/vue3";
-import { Inertia } from "@inertiajs/inertia";
-
-defineProps ({
-    categories: {
-        type: Object,
-        required: true,
-    }
-})
 
 
-const deleteCategory = id => {
-    if (confirm("¿Está seguro de eliminar esta categoría?")) {
-        Inertia.delete(route('categories.destroy', id))
-    }
-}
 </script>

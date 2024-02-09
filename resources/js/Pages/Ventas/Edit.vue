@@ -7,6 +7,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <p>Precio total: {{ form.value.precio_total }}</p>
+                    <p>Fecha de venta: {{ form.value.fecha_venta }}</p>
                     <VentaForm :updating="true" :form="form" @submit="form.put(route('ventas.update', venta.id))" />
                 </div>
             </div>
@@ -16,26 +18,30 @@
 </template>
 
 <script>
-export default {
-    name: 'VentaEdit'
-}
-</script>
+const AuthenticatedLayout = require("@/Layouts/AuthenticatedLayout.vue");
+const VentaForm = require("@/Components/Ventas/Form.vue");
+const { useForm } = require('@inertiajs/vue3');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import VentaForm from '@/Components/Ventas/Form.vue'
-
-const props = defineProps ({
-    venta : {
-        type : Object,
-        required : true
+module.exports = {
+    name: 'VentaEdit',
+    components: {
+        AuthenticatedLayout,
+        VentaForm,
+    },
+    props: {
+        venta : {
+            type : Object,
+            required : true
+        }
+    },
+    setup() {
+        const form = useForm({
+            precio_total: this.venta.precio_total,
+            fecha_venta : this.venta.fecha_venta
+        });
+        // Haz algo con 'form' aquí...
+        return { form };
     }
-});
-
-const form = useForm({
-    precio_total: props.category.precio_total,
-    fecha_venta : props.category.fecha_venta
-})
+};
 </script>
 

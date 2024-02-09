@@ -20,27 +20,34 @@
 </template>
 
 <script>
-export default {
-    name: 'PagosCreate'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const PagoForm = require('@/Components/Pago/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import PagoForm from '@/Components/Pago/Form.vue'
+module.exports = {
+    name: 'PagosCreate',
+    components: {
+        AuthenticatedLayout,
+        PagoForm
+    },
+    props: {
+        ventas: {
+            type: Object,
+            required: true,
+        }
+    },
 
-defineProps({
-    ventas: {
-        type: Object,
-        required: true,
+    setup() {
+        const form = useForm({
+            importe: Number,
+            fecha_pago: Date,
+            metodo_pago: ''
+        });
+        return { form };
     }
-})
+}
 
-const form = useForm({
-    importe: Number,
-    fecha_pago: Date,
-    metodo_pago: ''
-})
+
+
 </script>
 

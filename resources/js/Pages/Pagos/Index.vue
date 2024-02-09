@@ -24,7 +24,7 @@
                                     <p
                                         class="text-md font-semibold leading-6 text-gray-900"
                                     >
-                                        {{ pago.importe }}
+                                        {{ pago.conste }}
                                         {{ pago.fecha_pago }}
                                         {{ pago.metodo_pago }}
                                     </p>
@@ -58,25 +58,31 @@
 </template>
 
 <script>
-export default {
+const AuthenticatedLayout = require("@/Layouts/AuthenticatedLayout.vue");
+const { Link } = require("@inertiajs/vue3");
+const { Inertia } = require("@inertiajs/inertia");
+
+module.exports =  {
     name: "PagosIndex",
+    components: {
+        AuthenticatedLayout,
+        Link
+    },
+    props: {
+        pagos: {
+            type: Object,
+            required: true,
+        }
+    },
+
+    methods: {
+        deletePago (id) {
+            if (confirm("¿Está seguro de eliminar este Pago?")) {
+                Inertia.delete(route('pago.destroy', id))
+            }
+        }
+    }
+
 };
-</script>
 
-<script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Link } from "@inertiajs/vue3";
-import { Inertia } from "@inertiajs/inertia";
-
-defineProps ({
-    pagos: {
-        type: Object,
-        required: true,
-    }
-})
-const deletePago = id =>{
-    if (confirm("¿Está seguro de eliminar este Pago?")) {
-        Inertia.delete(route('pago.destroy', id))
-    }
-}
 </script>

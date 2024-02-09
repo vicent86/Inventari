@@ -16,27 +16,32 @@
 </template>
 
 <script>
-export default {
-    name: 'StockEdit'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const StockForm = require('@/Components/Stocks/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import StockForm from '@/Components/Stocks/Form.vue'
-
-const props = defineProps ({
-    stock : {
-        type : Object,
-        required : true
+module.exports = {
+    name: 'StockEdit',
+    components: {
+        AuthenticatedLayout,
+        StockForm,
+    },
+    props: {
+        stock : {
+            type : Object,
+            required : true
+        }
+    },
+    setup() {
+        const form = useForm({
+            cantidad: this.stock.cantidad,
+            ultima_actualizacion : this.stock.ultima_actualizacion,
+            localizacion: this.stock.localizacion
+        });
+        
+        return { form };
     }
-});
+};
 
-const form = useForm({
-    cantidad: props.stock.cantidad,
-    ultima_actualizacion : props.stock.ultima_actualizacion,
-    localizacion: props.stock.localizacion
-})
 </script>
 

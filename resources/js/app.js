@@ -1,24 +1,35 @@
-import { createApp, defineAsyncComponent, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
-import route from "ziggy-js";
-import { InertiaProgress } from '@inertiajs/progress';
-import Register from './Pages/Auth/Register.vue';
-import Welcome from './Pages/Welcome.vue';
+const { createApp, defineAsyncComponent, h } = require('vue');
+const { createInertiaApp } = require('@inertiajs/vue3');
+const route = require("ziggy-js");
+const { InertiaProgress } = require('@inertiajs/progress');
+const Register = require('./Pages/Auth/Register.vue');
+const Welcome = require('./Pages/Welcome.vue');
+const Login = require('./Pages/Auth/Login.vue');
+
+const corejs = require("core-js/stable");
+const regeneratorRuntime = require("regenerator-runtime/runtime");
+
 
 const el = document.getElementById('app');
 
 createInertiaApp({
     components: {
         Welcome,
+        Register,
+        Login
     },
     resolve: name => {
         if (name === 'Auth.Register') {
             return Register;
         }
-        const page = require(`./Pages/${name}`).default;
 
+        if ( name === 'Auth.Login') {
+            return Login;
+        }
+        
+        const pages = require(`./Pages/${name}`).default;
 
-        return defineAsyncComponent(() => import(`./Pages/${name.replace('.', '/')}.vue`));
+        return defineAsyncComponent(() => Promise.resolve(require(`./Pages/${name.replace('.', '/')}.vue`)));
     },    
     
     setup({el, App, props, plugin}) {

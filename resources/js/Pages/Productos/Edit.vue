@@ -16,26 +16,30 @@
 </template>
 
 <script>
-export default {
-    name: 'CategoryEdit'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const CategoryForm = require('@/Components/Categories/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import CategoryForm from '@/Components/Categories/Form.vue'
-
-const props = defineProps ({
-    category : {
-        type : Object,
-        required : true
+module.exports =  {
+    name: 'CategoryEdit',
+    components : {
+        AuthenticatedLayout,
+        CategoryForm
+    },
+    props: {
+        category : {
+            type : Object,
+            required : true
+        }
+    },
+    setup() {
+        const form = useForm({
+            nombre: this.category.nombre,
+            descripcion : this.category.descripcion
+        });
+        return { form };
     }
-});
+};
 
-const form = useForm({
-    nombre: props.category.nombre,
-    descripcion : props.category.descripcion
-})
 </script>
 

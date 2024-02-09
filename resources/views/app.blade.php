@@ -12,7 +12,7 @@
 
         <!-- Scripts -->
         @routes
-        <script src="{{ asset('js/app.js') }}" type="module" defer></script>
+        <script src="{{ asset('js/app.js') }}" type="commonjs"></script>
     </head>
     <body class="font-sans antialiased">
        @inertia

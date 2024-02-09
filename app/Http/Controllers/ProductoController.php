@@ -26,44 +26,6 @@ class ProductoController extends Controller
     }
 
 
-    // public function ProductoLista(Request $request)
-    // {
-
-
-    //     $producto = Producto::with([
-    //         'Categoria' => function ($query) {
-    //             $query->select('id', 'nombre');
-    //         }
-    //     ])->orderBy('nombre', 'asc');
-
-    //     $nombre = $request->nombre;
-
-    //     if ($nombre != '') {
-
-    //         $producto->where('nombre', 'LIKE', '%' . $nombre . '%');
-
-    //     }
-
-    //     if ($request->cat != '') {
-
-    //         $producto->where('categoria_id', '=', $request->cat);
-
-    //     }
-
-    //     $producto = $producto->paginate(10);
-
-    //     return $producto;
-    // }
-
-    // public function productoPorCategoria($id)
-    // {
-
-    //     $producto = Producto::where('categoria_id', '=', $id)->get();
-
-    //     return $producto;
-
-    // }
-
     public function store(Request $request)
     {
         Producto::create($request->validated());

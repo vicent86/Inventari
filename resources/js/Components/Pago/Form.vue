@@ -10,9 +10,9 @@
 
         <template #form>
             <div class="col-span-6 sm:col-span-6">
-                <InputLabel for="importe" value="Importe" />
-                <TextInput id="importe" v-model="form.importe" type="text" autocomplete="importe" class="mt-1 block w-full" />
-                <InputError :message="$page.props.errors.importe" class="mt-2" />
+                <InputLabel for="conste" value="conste" />
+                <TextInput id="conste" v-model="form.conste" type="text" autocomplete="conste" class="mt-1 block w-full" />
+                <InputError :message="$page.props.errors.conste" class="mt-2" />
 
                 <InputLabel for="fecha_pago" value="fecha_pago" />
                 <TextInput id="fecha_pago" v-model="form.fecha_pago" type="Date" autocomplete="fecha_pago" class="mt-1 block w-full" />
@@ -24,7 +24,7 @@
 
                 <InputLabel for="id_venta" value="Venta" />
                 <select name="id_venta" id="id_venta">
-                    <option v-for="venta in ventas" :value="venta.id">{{ venta.importe }}</option>
+                    <option v-for="venta in ventas" :value="venta.id">{{ venta.conste }}</option>
                 </select>
                 <InputError :message="$page.props.errors.id_venta" class="mt-2" />
 
@@ -40,36 +40,39 @@
 </template>
 
 <script>
-export default {
-    name: 'PagoForm'
-}
-</script>
+const FormSection = require('@/Components/FormSection.vue');
+const InputError = require('@/Components/InputError.vue');
+const InputLabel = require('@/Components/InputLabel.vue');
+const PrimaryButton = require('@/Components/PrimaryButton.vue');
+const TextInput = require('@/Components/TextInput.vue');
 
-<script setup>
-import FormSection from '../../Components/FormSection.vue'
-import InputError from '../../Components/InputError.vue'
-import InputLabel from '../../Components/InputLabel.vue'
-import PrimaryButton from '../../Components/PrimaryButton.vue'
-import TextInput from '../../Components/TextInput.vue'
- 
-defineProps({
-
-    form: {
-        type: Object,
-        required: true
+module.exports = {
+    name: 'PagoForm',
+    components: {
+        FormSection,
+        InputError,
+        InputLabel,
+        PrimaryButton,
+        TextInput
     },
-    updating: {
-        type: Boolean,
-        required:false,
-        default: false
-    },
-    ventas: {
-        type: Object,
-        required:true
-    }
+    props: {
+        form: {
+            type: Object,
+            required: true
+        },
+        updating: {
+            type: Boolean,
+            required:false,
+            default: false
+        },
+        ventas: {
+            type: Object,
+            required:true
+        }
     
-})
+    },
 
-defineEmits(['submit'])
-
+    emits: ['submit']
+}
+ 
 </script>

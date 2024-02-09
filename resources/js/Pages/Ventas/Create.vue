@@ -1,7 +1,7 @@
 <template>
     <AuthenticatedLayout>
         <template title="Create Venta">
-            <h1 class="font-semibold text-xl text-gray-800 leading-tight" >Crear Categoria</h1>
+            <h1 class="font-semibold text-xl text-gray-800 leading-tight" >Crear Venta</h1>
         </template>
 
         <div class="py-12">
@@ -20,27 +20,29 @@
 </template>
 
 <script>
-export default {
-    name: 'VentasCreate'
-}
-</script>
+const AuthenticatedLayout = require("@/Layouts/AuthenticatedLayout.vue");
+const VentaForm = require("@/Components/Ventas/Form.vue");
+const { useForm } = require('@inertiajs/vue3');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import VentaForm from '@/Components/Ventas/Form.vue';
-
-defineProps({
-    clientes: {
-        type: Object,
-        required: true
+module.exports = {
+    name: 'VentasCreate',
+    components: {
+        AuthenticatedLayout,
+        VentaForm,
+    },
+    props: {
+        clientes: {
+            type: Object,
+            required: true
+        }
+    },
+    setup() {
+        const form = useForm({
+            precio_total: 0.00,
+            fecha_venta: Date
+        });
+        return { form };
     }
-})
-
-const form = useForm({
-    precio_total : 0.00,
-    fecha_venta : Date,
-    
-})
+};
 </script>
 

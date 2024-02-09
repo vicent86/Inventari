@@ -1,0 +1,210 @@
+const {
+  createApp,
+  defineAsyncComponent,
+  h
+} = require('vue');
+const {
+  createInertiaApp
+} = require('@inertiajs/vue3');
+const route = require("ziggy-js");
+const {
+  InertiaProgress
+} = require('@inertiajs/progress');
+const Register = require('./Pages/Auth/Register.vue');
+const Welcome = require('./Pages/Welcome.vue');
+const Login = require('./Pages/Auth/Login.vue');
+const el = document.getElementById('app');
+createInertiaApp({
+  components: {
+    Welcome,
+    Register,
+    Login
+  },
+  resolve: name => {
+    if (name === 'Auth.Register') {
+      return Register;
+    }
+    if (name === 'Auth.Login') {
+      return Login;
+    }
+    const page = require(`./Pages/${name}`).default;
+    return defineAsyncComponent(() => Promise.resolve(require(`./Pages/${name.replace('.', '/')}.vue`)));
+  },
+  setup({
+    el,
+    App,
+    props,
+    plugin
+  }) {
+    createApp({
+      render: () => h(App, props)
+    }).mixin({
+      methods: {
+        route
+      }
+    }).use(plugin).mount(el);
+  }
+});
+InertiaProgress.init({
+  color: '#4B5563'
+});
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+import axios from 'axios';
+window.axios = axios;
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+
+// import Echo from 'laravel-echo';
+
+// import Pusher from 'pusher-js';
+// window.Pusher = Pusher;
+
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: import.meta.env.VITE_PUSHER_APP_KEY,
+//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
+//     wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
+//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
+//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
+//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
+//     enabledTransports: ['ws', 'wss'],
+// });
+const Ziggy = {
+  url: "http://localhost",
+  port: null,
+  defaults: {},
+  routes: {
+    login: {
+      uri: "login",
+      methods: ["GET", "HEAD"]
+    },
+    logout: {
+      uri: "logout",
+      methods: ["POST"]
+    },
+    "password.request": {
+      uri: "forgot-password",
+      methods: ["GET", "HEAD"]
+    },
+    "password.reset": {
+      uri: "reset-password/{token}",
+      methods: ["GET", "HEAD"],
+      parameters: ["token"]
+    },
+    "password.email": {
+      uri: "forgot-password",
+      methods: ["POST"]
+    },
+    "password.update": {
+      uri: "reset-password",
+      methods: ["POST"]
+    },
+    register: {
+      uri: "register",
+      methods: ["GET", "HEAD"]
+    },
+    "verification.notice": {
+      uri: "email/verify",
+      methods: ["GET", "HEAD"]
+    },
+    "verification.verify": {
+      uri: "email/verify/{id}/{hash}",
+      methods: ["GET", "HEAD"],
+      parameters: ["id", "hash"]
+    },
+    "verification.send": {
+      uri: "email/verification-notification",
+      methods: ["POST"]
+    },
+    "user-profile-information.update": {
+      uri: "user/profile-information",
+      methods: ["PUT"]
+    },
+    "user-password.update": {
+      uri: "user/password",
+      methods: ["PUT"]
+    },
+    "password.confirmation": {
+      uri: "user/confirmed-password-status",
+      methods: ["GET", "HEAD"]
+    },
+    "password.confirm": {
+      uri: "user/confirm-password",
+      methods: ["POST"]
+    },
+    "two-factor.login": {
+      uri: "two-factor-challenge",
+      methods: ["GET", "HEAD"]
+    },
+    "two-factor.enable": {
+      uri: "user/two-factor-authentication",
+      methods: ["POST"]
+    },
+    "two-factor.confirm": {
+      uri: "user/confirmed-two-factor-authentication",
+      methods: ["POST"]
+    },
+    "two-factor.disable": {
+      uri: "user/two-factor-authentication",
+      methods: ["DELETE"]
+    },
+    "two-factor.qr-code": {
+      uri: "user/two-factor-qr-code",
+      methods: ["GET", "HEAD"]
+    },
+    "two-factor.secret-key": {
+      uri: "user/two-factor-secret-key",
+      methods: ["GET", "HEAD"]
+    },
+    "two-factor.recovery-codes": {
+      uri: "user/two-factor-recovery-codes",
+      methods: ["GET", "HEAD"]
+    },
+    "profile.show": {
+      uri: "user/profile",
+      methods: ["GET", "HEAD"]
+    },
+    "other-browser-sessions.destroy": {
+      uri: "user/other-browser-sessions",
+      methods: ["DELETE"]
+    },
+    "current-user-photo.destroy": {
+      uri: "user/profile-photo",
+      methods: ["DELETE"]
+    },
+    "current-user.destroy": {
+      uri: "user",
+      methods: ["DELETE"]
+    },
+    "sanctum.csrf-cookie": {
+      uri: "sanctum/csrf-cookie",
+      methods: ["GET", "HEAD"]
+    },
+    "ignition.healthCheck": {
+      uri: "_ignition/health-check",
+      methods: ["GET", "HEAD"]
+    },
+    "ignition.executeSolution": {
+      uri: "_ignition/execute-solution",
+      methods: ["POST"]
+    },
+    "ignition.updateConfig": {
+      uri: "_ignition/update-config",
+      methods: ["POST"]
+    }
+  }
+};
+if (typeof window !== "undefined" && typeof window.Ziggy !== "undefined") {
+  Object.assign(Ziggy.routes, window.Ziggy.routes);
+}
+export { Ziggy };

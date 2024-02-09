@@ -1,34 +1,36 @@
-<script setup>
-import { Head, Link } from "@inertiajs/vue3";
-
-defineProps({
-    canLogin: {
-        type: Boolean,
+<script>
+ const { Head, Link } = require("@inertiajs/vue3");
+ 
+ module.exports = {
+    props : {
+        canLogin: {
+            type: Boolean,
+        },
+        canRegister: {
+            type: Boolean,
+        },
+        laravelVersion: {
+            type: String,
+            required: true,
+        },
+        phpVersion: {
+            type: String,
+            required: true,
+        },
+        jetstream: {
+            type: Object,
+            required: true,
+        },
+        auth: {
+            type: Object,
+            required: true,
+        },
+        errorBags: {
+            type: Array,
+            required: true,
+        },
     },
-    canRegister: {
-        type: Boolean,
-    },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
-    },
-    jetstream: {
-        type: Object,
-        required: true,
-    },
-    auth: {
-        type: Object,
-        required: true,
-    },
-    errorBags: {
-        type: Array,
-        required: true,
-    },
-});
+};
 
 </script>
 

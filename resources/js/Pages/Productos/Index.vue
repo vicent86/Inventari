@@ -58,25 +58,30 @@
 </template>
 
 <script>
-export default {
+const AuthenticatedLayout = require("@/Layouts/AuthenticatedLayout.vue");
+const { Link } = require("@inertiajs/vue3");
+const { Inertia } = require("@inertiajs/inertia");
+
+module.exports =  {
     name: "ProductosIndex",
+    components: {
+        AuthenticatedLayout,
+        Link
+    },
+    props: {
+        productos: {
+            type: Object,
+            required: true,
+        }
+    },
+    methods:{
+        deleteProducto(id){
+            if (confirm("¿Está seguro de eliminar este producto?")) {
+                Inertia.delete(route('productos.destroy', id))
+            }
+        }
+    }
+
 };
-</script>
 
-<script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Link } from "@inertiajs/vue3";
-import { Inertia } from "@inertiajs/inertia";
-
-defineProps ({
-    productos: {
-        type: Object,
-        required: true,
-    }
-})
-const deleteProducto = id =>{
-    if (confirm("¿Está seguro de eliminar este producto?")) {
-        Inertia.delete(route('productos.destroy', id))
-    }
-}
 </script>

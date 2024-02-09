@@ -20,25 +20,28 @@
 </template>
 
 <script>
-export default {
-    name: 'ClienteCreate'
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const ClienteForm = require('@/Components/Cliente/Form.vue');
+
+module.exports =  {
+    name: 'ClienteCreate',
+    components: {
+        AuthenticatedLayout,
+        ClienteForm
+    },
+    setup() {
+        const form = useForm({
+            nombre: '',
+            direccion: '',
+            telefono: '',
+            cif: '',
+            estado: false
+        });
+        
+        return { form };
+    }   
 }
+
+
 </script>
-
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import ClienteForm from '@/Components/Cliente/Form.vue'
-
-const form = useForm({
-    nombre: '',
-    direccion: '',
-    telefono: '',
-    cif: '',
-    estado: false
-})
-</script>
-
-<style>
-
-</style>

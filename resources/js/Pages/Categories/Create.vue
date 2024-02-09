@@ -20,20 +20,27 @@
 </template>
 
 <script>
-export default {
-    name: 'CategoriesCreate'
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const CategoryForm = require('@/Components/Categories/Form.vue');
+
+module.exports = {
+    name: 'CategoriesCreate',
+    components: {
+        AuthenticatedLayout,
+        CategoryForm
+    },
+    setup() {
+        const form = useForm({
+            nombre: '',
+            descripcion: '',
+            estado: false
+        });
+
+        return { form };
+    }
 }
-</script>
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import CategoryForm from '@/Components/Categories/Form.vue'
 
-const form = useForm({
-    nombre: '',
-    descripcion: '',
-    estado: false
-})
 </script>
 

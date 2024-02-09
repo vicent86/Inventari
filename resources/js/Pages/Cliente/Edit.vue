@@ -16,28 +16,36 @@
 </template>
 
 <script>
-export default {
-    name: 'ClienteEdit'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const ClienteForm = require('@/Components/Cliente/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import ClienteForm from '@/Components/Cliente/Form.vue'
-
-const props = defineProps ({
-    cliente : {
-        type : Object,
-        required : true
+module.exports =  {
+    name: 'ClienteEdit',
+    components: {
+        AuthenticatedLayout,
+        ClienteForm
+    },
+    props: {
+        cliente : {
+            type : Object,
+            required : true
+        }
+    },
+    setup() {
+        const form = useForm({
+            nombre: this.cliente.nombre,
+            direccion : this.cliente.direccion,
+            telefono : this.cliente.telefono,
+            cif : this.cliente.cif
+        });
+        
+        return { form };
     }
-});
+};
 
-const form = useForm({
-    nombre: props.cliente.nombre,
-    direccion : props.cliente.direccion,
-    telefono : props.cliente.telefono,
-    cif : props.cliente.cif
-})
+
+
+
 </script>
 

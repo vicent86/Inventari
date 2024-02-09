@@ -16,26 +16,33 @@
 </template>
 
 <script>
-export default {
-    name: 'VentaDetallesEdit'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const VentaDetalleForm = require('@/Components/Venta_Detalles/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import VentaDetalleForm from '@/Components/Venta_Detalles/Form.vue'
+module.exports = {
+    name: 'VentaDetallesEdit',
+    components : {
+        AuthenticatedLayout,
+        VentaDetalleForm
+    },
+    props: {
+        venta_detalle : {
+            type : Object,
+            required : true
+        }
+    },
+    setup(){
+        const form = useForm({
+            precio_producto: this.category.nombre,
+            cantidad : this.category.descripcion
+        })
 
-const props = defineProps ({
-    venta_detalle : {
-        type : Object,
-        required : true
+        return { form };
     }
-});
+};
 
-const form = useForm({
-    precio_producto: props.category.nombre,
-    cantidad : props.category.descripcion
-})
+
+
 </script>
 

@@ -15,58 +15,6 @@ class ClienteController extends Controller
 
     }
 
-
-    // public function ClienteLista(Request $request){
-
-    //     $nombre = $request->nombre;
-    //     $direccion = $request->direccion;
-    //     $telefono = $request->telefono;
-    //     $cif = $request->cif;
-    //     $cliente = Cliente::withCount([
-    //         'venta AS importe_total' => function ($query){
-
-    //             $query->select(DB::raw("COALESCE(SUM(importe_total),0)"));
-
-    //         },
-
-    //         'venta AS total_importe_pagado' => function ($query){
-
-    //             $query->select(DB::raw("COALESCE(SUM(importe_pagado),0)"));
-
-    //         },
-
-    //     ])->orderBy('nombre_cliente','asc');
-
-    //     if($nombre != ''){
-
-    //         $cliente->where('nombre_cliente','LIKE','%'.$nombre.'%');
-
-    //     }
-
-    //     if($direccion != ''){
-
-    //         $cliente->where('direccion','LIKE','%'.$direccion.'%');
-
-    //     }
-
-    //     if($telefono != ''){
-
-    //         $telefono->where('telefono','LIKE','%'.$telefono.'%');
-
-    //     }
-
-    //     if($cif != ''){
-
-    //         $cif->where('cif','LIKE','%'.$cif.'%');
-
-    //     }
-
-    //     $cliente = $cliente->paginate(10);
-
-    //     return $cliente;
-
-    // }
-
     public function create()
     {
         return inertia('Clientes/create');

@@ -16,31 +16,35 @@
 </template>
 
 <script>
-export default {
-    name: 'ProveedorEdit'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const ProveedorForm = require('@/Components/Proveedores/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import ProveedorForm from '@/Components/Proveedores/Form.vue'
+module.exports = {
+    name: 'ProveedorEdit',
+    components: {
+        AuthenticatedLayout,
+        ProveedorForm
+    },
+    props: {
+        proveedor : {
+            type : Object,
+            required : true
+        }
+    },
 
-const props = defineProps ({
-    proveedor : {
-        type : Object,
-        required : true
+    setup() {
+        const form = useForm({
+            nombre: this.proveedor.nombre,
+            direccion: this.proveedor.direccion,
+            email: this.proveedor.email,
+            cif : this.proveedor.cif,
+            estado : this.proveedor.estado,
+            cualificacion: this.proveedor.cualificacion
+        });
+        return { form };
     }
-});
+};
 
-const form = useForm({
-    nombre: props.proveedor.nombre,
-    direccion: props.proveedor.direccion,
-    email: props.proveedor.email,
-    cif : props.proveedor.cif,
-    estado : props.proveedor.estado,
-    cualificacion: props.proveedor.cualificacion
-
-})
 </script>
 

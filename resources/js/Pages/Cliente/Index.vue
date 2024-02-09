@@ -59,25 +59,29 @@
 </template>
 
 <script>
-export default {
+const AuthenticatedLayout = require("@/Layouts/AuthenticatedLayout.vue");
+const { Link } = require("@inertiajs/vue3");
+const { Inertia } = require("@inertiajs/inertia");
+
+module.exports =  {
     name: "ClientesIndex",
+    components: {
+        AuthenticatedLayout,
+        Link
+    },
+    props: {
+        clientes: {
+            type: Object,
+            required: true,
+        }
+    },
+    methods: {
+        deleteCliente (id) {
+            if (confirm("¿Está seguro de eliminar este cliente?")) {
+                Inertia.delete(route('cliente.destroy', id))
+            }
+        }       
+    }
 };
-</script>
 
-<script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Link } from "@inertiajs/vue3";
-import { Inertia } from "@inertiajs/inertia";
-
-defineProps ({
-    clientes: {
-        type: Object,
-        required: true,
-    }
-})
-const deleteCliente = id =>{
-    if (confirm("¿Está seguro de eliminar este cliente?")) {
-        Inertia.delete(route('cliente.destroy', id))
-    }
-}
 </script>

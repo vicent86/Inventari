@@ -20,22 +20,25 @@
 </template>
 
 <script>
-export default {
-    name: 'RolesCreate'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const RoleForm = require('@/Components/Roles/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import RoleForm from '@/Components/Roles/Form.vue'
-
-const form = useForm({
-    name: '',
+module.exports =  {
+    name: 'RolesCreate',
+    components: {
+        AuthenticatedLayout,
+        RoleForm
+    },
+    setup() {
+        const form = useForm({
+            name: '',
     
-})
+        });
+        return { form };
+    }
+}
+
+
 </script>
 
-<style>
-
-</style>

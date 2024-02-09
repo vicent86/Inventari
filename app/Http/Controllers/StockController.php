@@ -17,64 +17,6 @@ class StockController extends Controller
     }
 
 
-    // public function StockList(Request $request)
-    // {
-
-    //     $stock = Stock::with(
-    //         [
-    //             'producto' => function ($query) {
-    //                 $query->select('id', 'nombre');
-    //             },
-    //             'Proveedor' => function ($query) {
-    //                 $query->select('id', 'nombre');
-    //             },
-
-    //             'Categoria' => function ($query) {
-
-    //                 $query->select('id', 'nombre');
-    //             }
-    //         ]
-    //     )
-    //         ->orderBy('updated_at', 'desc');
-
-
-    //     if ($request->categoria != '') {
-
-    //         $stock->where('categoria_id', '=', $request->categoria);
-
-    //     }
-
-    //     if ($request->producto != '') {
-
-    //         $stock->where('producto_id', '=', $request->producto);
-
-    //     }
-
-    //     if ($request->proveedor != '') {
-
-    //         $stock->where('proveedor_id', '=', $request->proveedor);
-
-    //     }
-
-    //     $stock = $stock->paginate(10);
-
-    //     return $stock;
-
-    // }
-
-    // public function StockListaCan($id)
-    // {
-
-    //     $chalan = Stock::where('producto_id', '=', $id)
-    //         ->where('cantidad_actual', '>', 0)
-    //         ->orderBy('updated_at', 'desc')
-    //         ->get();
-
-
-    //     return $chalan;
-
-    // }
-
     public function create()
     {
         $productos = Producto::all();
@@ -106,46 +48,6 @@ class StockController extends Controller
         $stock->update($request->validated());
         return redirect()->route('stocks.index');
     }
-
-    // public function StockUpdate(Request $request)
-    // {
-
-    //     $request->validate([
-
-    //         'new_qty' => 'required|integer',
-    //         'state' => 'required',
-    //     ]);
-
-    //     $stock = Stock::find($request->id);
-
-    //     if ($request->state == '+') {
-
-    //         $stock->current_quantity = $stock->current_quantity + $request->new_qty;
-    //         $stock->stock_quantity = $stock->stock_quantity + $request->new_qty;
-
-    //         $stock->update();
-
-    //         return response()->json(['status' => 'success', 'message' => 'Cantidad actualizada']);
-    //     } else {
-
-    //         if ($request->new_qty > $stock->current_quantity) {
-
-    //             return response()->json(['status' => 'error', 'message' => 'La cantidad es mayor que la cantidad actual']);
-
-    //         } else {
-
-    //             $stock->current_quantity = $stock->current_quantity - $request->new_qty;
-    //             $stock->stock_quantity = $stock->stock_quantity - $request->new_qty;
-
-    //             $stock->update();
-
-    //             return response()->json(['status' => 'success', 'message' => 'Cantidad actualizada']);
-
-    //         }
-
-
-    //     }
-    // }
 
 
     public function destroy( Stock $stock)

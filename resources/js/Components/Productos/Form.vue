@@ -54,22 +54,26 @@
 </template>
 
 <script>
-export default {
-    name: 'ProductoForm'
-}
-</script>
+const FormSection = require('@/Components/FormSection.vue');
+const InputError = require('@/Components/InputError.vue');
+const InputLabel = require('@/Components/InputLabel.vue');
+const PrimaryButton = require('@/Components/PrimaryButton.vue');
+const TextInput = require('@/Components/TextInput.vue');
+const SecondaryButton = require('@/Components/SecondaryButton.vue');
+const CollectionSelector = require('../Common/CollectionSelector.vue');
 
-<script setup>
-import FormSection from '../../Components/FormSection.vue'
-import InputError from '../../Components/InputError.vue'
-import InputLabel from '../../Components/InputLabel.vue'
-import PrimaryButton from '../../Components/PrimaryButton.vue'
-import TextInput from '../../Components/TextInput.vue'
-import SecondaryButton from '../../Components/SecondaryButton.vue'
-import CollectionSelector from '../Common/CollectionSelector.vue'
-    
-defineProps({
-
+module.exports =  {
+    name: 'ProductoForm',
+    components: {
+        FormSection,
+        InputError,
+        InputLabel,
+        PrimaryButton,
+        TextInput,
+        SecondaryButton,
+        CollectionSelector
+    },
+    props: {
         form: {
             type: Object,
             required: true
@@ -87,9 +91,8 @@ defineProps({
             type: Object,
             required:true,
         }
-    
-})
-
-defineEmits(['submit'])
-
+    },
+    emits: ['submit']
+}
+   
 </script>

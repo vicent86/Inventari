@@ -1,13 +1,25 @@
-import { defineConfig } from "vite";
-import laravel from "laravel-vite-plugin";
-import vuePlugin from "@vitejs/plugin-vue";
-import Components from "unplugin-vue-components/vite";
-import { AntDesignVueResolver, ElementPlusResolver } from "unplugin-vue-components/resolvers";
-import path from 'path';
+const { defineConfig } = require("vite");
+const laravel = require("laravel-vite-plugin");
+const vuePlugin = require("@vitejs/plugin-vue");
+const Components = require("unplugin-vue-components/vite");
+const { AntDesignVueResolver, ElementPlusResolver } = require("unplugin-vue-components/resolvers");
+const path = require('path');
 
-export default defineConfig ({
+
+module.exports = defineConfig ({
   plugins: [
-    laravel(['resources/js/app.js']),
+    laravel({
+      input:['resources/js/app.js', 'resources/css/app.css'],
+      refresh: true,
+    }),
+    vue({
+      template: {
+        transformAssetsUrls: {
+          base: null,
+          includeAbsolute: false,
+        },
+      },
+    }),
     vuePlugin(),
     Components({
       // Configuración automática de componentes de bibliotecas UI
@@ -20,6 +32,7 @@ export default defineConfig ({
       // Configuración de componentes personalizados
       include: [/\.vue$/], // Incluye todos los archivos .vue
       exclude: [/node_modules/, /\.test\.js$/], // Excluye los archivos en node_modules y los archivos de prueba
+
     }),
 
     
@@ -30,6 +43,7 @@ export default defineConfig ({
     alias: {
       ziggy: path.resolve(__dirname, "vendor/tightenco/ziggy/dist"),
       '@': path.resolve(__dirname, './resources/js'),
+      'vue': 'vue/dist/vue.runtime.esm-bundler',
     },
   },
 

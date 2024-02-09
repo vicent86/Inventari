@@ -56,25 +56,30 @@
 </template>
 
 <script>
-export default {
+const AuthenticatedLayout = require("@/Layouts/AuthenticatedLayout.vue");
+const { Link } = require("@inertiajs/vue3");
+const { Inertia } = require("@inertiajs/inertia");
+
+module.exports = {
     name: "RolesIndex",
-};
-</script>
-
-<script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Link } from "@inertiajs/vue3";
-import { Inertia } from "@inertiajs/inertia";
-
-defineProps ({
-    roles: {
-        type: Object,
-        required: true,
-    }
-})
-const deleteRole = id =>{
-    if (confirm("¿Está seguro de eliminar este Role?")) {
-        Inertia.delete(route('roles.destroy', id))
-    }
+    components: {
+        AuthenticatedLayout,
+        Link
+    },
+    props: {
+        roles: {
+            type: Object,
+            required: true,
+        }
+    },
+    methods: {
+        deleteRole(id) {
+            if (confirm("¿Está seguro de eliminar este Role?")) {
+            Inertia.delete(route('roles.destroy', id))
+        }
 }
+    }
+};
+
+
 </script>

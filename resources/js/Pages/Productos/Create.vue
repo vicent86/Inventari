@@ -20,33 +20,34 @@
 </template>
 
 <script>
-export default {
-    name: 'ProductosCreate'
-}
-</script>
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const ProductoForm = require('@/Components/Productos/Form.vue');
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import ProductoForm from '@/Components/Productos/Form.vue'
-
-defineProps({
-    categories: {
-        type: Object,
-        required: true,
+module.exports =  {
+    name: 'ProductosCreate',
+    components: {
+        AuthenticatedLayout,
+        ProductoForm
     },
-    stock: {
-        type: Object,
-        required: true,
+    props: {
+        categories: {
+            type: Object,
+            required: true,
+        },
+        stock: {
+            type: Object,
+            required: true,
+        }
+    },
+    setup() {
+        const form = useForm({
+            nombre: '',
+            descripcion: '',
+        });
+        return { form };
     }
-})
 
-const form = useForm({
-    nombre: '',
-    descripcion: '',
-})
+};
+
 </script>
-
-<style>
-
-</style>

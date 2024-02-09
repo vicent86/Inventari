@@ -38,21 +38,24 @@
 </template>
 
 <script>
-export default {
-    name: 'VentaDetalleForm'
-}
-</script>
+const FormSection = require('@/Components/FormSection.vue');
+const InputError = require('@/Components/InputError.vue');
+const InputLabel = require('@/Components/InputLabel.vue');
+const PrimaryButton = require('@/Components/PrimaryButton.vue');
+const TextInput = require('@/Components/TextInput.vue');
+const CollectionSelector = require('@/Components/Common/CollectionSelector.vue');
 
-<script setup>
-import FormSection from '../../Components/FormSection.vue'
-import InputError from '../../Components/InputError.vue'
-import InputLabel from '../../Components/InputLabel.vue'
-import PrimaryButton from '../../Components/PrimaryButton.vue'
-import TextInput from '../../Components/TextInput.vue'
-import CollectionSelector from '../../Components/Common/CollectionSelector.vue'
-    
-defineProps({
-
+module.exports = {
+    name: 'VentaDetalleForm',
+    components: {
+        FormSection,
+        InputError,
+        InputLabel,
+        PrimaryButton,
+        TextInput,
+        CollectionSelector,
+    },
+    props: {
         form: {
             type: Object,
             required: true
@@ -70,9 +73,8 @@ defineProps({
             type: Object,
             required:true,
         }
+    },
+    emits: ['submit']
+}
     
-})
-
-defineEmits(['submit'])
-
 </script>

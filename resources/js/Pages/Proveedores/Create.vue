@@ -20,24 +20,30 @@
 </template>
 
 <script>
-export default {
-    name: 'ProveedoresCreate'
+const { useForm } = require('@inertiajs/vue3');
+const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
+const ProveedorForm = require('@/Components/Proveedores/Form.vue');
+
+module.exports =  {
+    name: 'ProveedoresCreate',
+    components : {
+        AuthenticatedLayout,
+        ProveedorForm
+    },
+    setup() {
+        const form = useForm({
+            nombre: '',
+            direccion: '',
+            email: '',
+            cif: '',
+            estado: false,
+            cualificacion: 0
+        });
+        return { form };
+    }
 }
-</script>
 
-<script setup>
-import { useForm } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import ProveedorForm from '@/Components/Proveedores/Form.vue'
 
-const form = useForm({
-    nombre: '',
-    direccion: '',
-    email: '',
-    cif: '',
-    estado: false,
-    cualificacion: 0
-})
 </script>
 
 <style>
