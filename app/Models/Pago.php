@@ -9,9 +9,24 @@ class Pago extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $table = 'pagos';
+
+    protected $fillable = [
+        'id_venta',
+        'importe',
+        'iva',
+        'total',
+        'fecha_pago',
+        'metodo_pago'
+    ];
+
+    public function totalPago()
+    {
+        $this->total = $this->importe + ($this->importe * $this->iva / 100);
+        $this-> total;
+    }
 
     public function ventas(){
-        return $this->hasMany(Venta::class);
+        return $this->belongsTo(Venta::class);
     }
 }

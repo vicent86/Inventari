@@ -23,19 +23,9 @@ class ProveedorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => ['required', 'string', 'max:100', Rule::unique(table: 'proveedores', column: 'nombre')->ignore(id: request('proveedor'), idColumn: 'id')],
-            'direccion' => ['required', 'string', 'max:100', Rule::unique(table: 'proveedores', column: 'direccion')],
-            'email' => ['required', 'string', 'regex:/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', Rule::unique(table: 'proveedores', column: 'email')],
-            'cif' => ['required', 'string', 'max:100', Rule::unique(table:'proveedores', column:'CIF')]
+            //
         ];
     }
 
-    public function messages():array
-    {
-        return [
-            'nombre.unique' => __('El Proveedor todavia existe')
-        ];
-
-    }
 
 }

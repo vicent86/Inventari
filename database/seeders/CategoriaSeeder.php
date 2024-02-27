@@ -13,42 +13,33 @@ class CategoriaSeeder extends Seeder
      */
     public function run(): void
     {
-        Categoria::created([
-            'nombre' => 'Tecnología',
-            'descripcion' => 'Artículos relacionados con la tecnología en general',
-            'estado' => 'Activo'
-        ]);
-
-        Categoria::created([
-            'nombre' => 'Hogar',
-            'descripcion' => 'Artículos relacionados con el hogar en general',
-            'estado' => 'Activo'
-        ]);
-
-        Categoria::created([
-            'nombre' => 'Gadgets',
-            'descripcion' => 'Artículos relacionados aparatos electrónicos en general',
-            'estado' => 'Activo'
-        ]);
-
-        Categoria::created([
-            'nombre' => 'Informatica',
-            'descripcion' => 'Artículos relacionados con la informatica en general',
-            'estado' => 'Activo'
-        ]);
-
-        Categoria::created([
-            'nombre' => 'Muebles',
-            'descripcion' => 'Artículos relacionados con el mueble en general',
-            'estado' => 'Activo'
-        ]);
-
-        Categoria::created([
-            'nombre' => 'Zapatos',
-            'descripcion' => 'Artículos relacionados con el calzado en general',
-            'estado' => 'Activo'
-        ]);
-
-
+        Categoria::insert([
+            [
+                'nombre' => 'Tecnología',
+                'descripcion' => 'Artículos relacionados con la tecnología en general',
+                'estado' => 'Activo'
+            ],
+            [
+                'nombre' => 'Hogar',
+                'descripcion' => 'Artículos relacionados con el hogar en general',
+                'estado' => 'Activo'
+            ],
+            [
+                'nombre' => 'Gadgets',
+                'descripcion' => 'Artículos relacionados aparatos electrónicos en general',
+                'estado' => 'Activo'
+            ],
+            [
+                'nombre' => 'Muebles',
+                'descripcion' => 'Artículos relacionados con el mueble en general',
+                'estado' => 'Activo'
+            ],
+            [
+                'nombre' => 'Zapatos',
+                'descripcion' => 'Artículos relacionados con el calzado en general',
+                'estado' => 'Activo'
+            ],
+        ]);    
+            
     }
 }

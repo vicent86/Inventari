@@ -5,14 +5,13 @@ const Components = require("unplugin-vue-components/vite");
 const { AntDesignVueResolver, ElementPlusResolver } = require("unplugin-vue-components/resolvers");
 const path = require('path');
 
-
 module.exports = defineConfig ({
   plugins: [
     laravel({
       input:['resources/js/app.js', 'resources/css/app.css'],
       refresh: true,
     }),
-    vue({
+    Vue({
       template: {
         transformAssetsUrls: {
           base: null,

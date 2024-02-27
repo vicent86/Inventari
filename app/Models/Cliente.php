@@ -9,7 +9,15 @@ class Cliente extends Model
 {
     use HasFactory;
 
-    protected $guarded  = [];
+    protected $table = 'clientes';
+
+    protected $fillable = [
+        'nombre',
+        'direccion',
+        'telefono',
+        'cif',
+        'estado'
+    ];
 
     public function ventas(){
         return $this->hasMany(Venta::class);

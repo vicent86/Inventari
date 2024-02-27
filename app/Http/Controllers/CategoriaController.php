@@ -7,39 +7,70 @@ use App\Models\Categoria;
 
 class CategoriaController extends Controller
 {
-    const NUMBER_OF_ITEMS_PER_PAGE = 25;
+    
     public function index()
     {
-        $categories = Categoria::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
-        return inertia('Categories/Index', ['categories' => $categories]);
+        $categories = Categoria::get();
+        return view('categoria.index',  compact('categories'));
     }
 
     public function create()
     {
-        return inertia('Categories/Create');
+        return view('categoria.create');
     }
-    
+
     public function store(CategoriaRequest $request)
     {
-       Categoria::create($request->validated());
-       return redirect()->route('categories.index');
+    
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'descripcion' => 'required|max:255|string',
+            'estado' => 'sometimes'
+        ]);
+
+        Categoria::create([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'estado' => $request->estado == true ? 1 : 0,
+        ]);
+
+        return redirect('categories/create')->with('status', 'Categoria añadida');
     }
     public function show(Categoria $categoria)
     {
         //
     }
-    public function edit(Categoria $categoria)
+    public function edit(int $id)
     {
-       return inertia('Categories/Edit', ['category' =>$categoria]);
+        
+        $categoria = Categoria::findOrFail($id);
+        return view('categoria.edit', compact('categoria'));
     }
-    public function update(CategoriaRequest $request, Categoria $categoria)
+    public function update(CategoriaRequest $request, int $id)
     {
-        $categoria->update($request->validated());
-        return redirect()->route('categories.index');
+       
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'descripcion' => 'required|max:255|string',
+            'estado' => 'sometimes'
+        ]);
+
+        Categoria::findOrfail($id)->update([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'estado' => $request->estado == true ? 1 : 0,
+        ]);
+
+        return redirect()->back()->with('status', 'Categoria actualizada');
+
     }
-    public function destroy(Categoria $categoria)
+    public function destroy(int $id)
     {
+       
+        $categoria = Categoria::findOrFail($id);
         $categoria->delete();
-        return redirect()->route('categories.index');
+
+        return redirect()->back()->with('status', 'Categoria eliminada');
+
     }
 }

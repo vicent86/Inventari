@@ -2,57 +2,86 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Producto;
 use Illuminate\Http\Request;
 use App\Models\Stock;
+use App\Http\Requests\StockRequest;
 
 class StockController extends Controller
 {
-    const NUMBER_OF_ITEMS_PER_PAGE = 25;
+
     public function index()
     {
-       
-        $stocks = Stock::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
-        return inertia('Stocks/Index', ['stocks' => $stocks]);
+
+        $stocks = Stock::get();
+        return view('stock.index', compact('stocks'));
     }
 
 
     public function create()
     {
-        $productos = Producto::all();
-        return inertia('Stocks/Create', ['productos' => $productos ]);
+        return view('stock.create');
     }
 
-    public function store(Request $request)
+    public function store(StockRequest $request)
     {
-        Stock::create($request->validated());
-        return redirect()->route('Stock.index');
+        $request->validate([
+            'producto_id' => 'required|max:255',
+            'cantidad' => 'required|numeric|min:0',
+            'ultima_actualizacion' => 'required|date_format:Y-m-d\TH:i',
+            'localizacion' => 'required|max:255|string',
+        ]);
+
+        Stock::create([
+            'producto_id' => $request->producto_id,
+            'cantidad' => $request->cantidad,
+            'ultima_actualizacion' => $request->ultima_actualizacion,
+            'localizacion' => $request->localizacion,
+        ]);
+
+        return redirect('stocks/create')->with('status', 'Stock añadido');
+
     }
 
 
     public function show(Stock $stock)
     {
 
-       //
+        //
 
     }
 
-    public function edit($stock)
+    public function edit(Stock $stock, int $id)
     {
-        return inertia('Stocks/Edit', ['stocks' =>$stock]);
+        $stock = Stock::findOrFail($id);
+        return view('stock.edit', compact('stock'));
     }
 
-    public function update(Request $request, Stock $stock)
+    public function update(StockRequest $request, int $id)
     {
+        $request->validate([
+            'producto_id' => 'required|max:255',
+            'cantidad' => 'required|numeric|min:0',
+            'ultima_actualizacion' => 'required|date_format:Y-m-d\TH:i',
+            'localizacion' => 'required|max:255|string',
+        ]);
 
-        $stock->update($request->validated());
-        return redirect()->route('stocks.index');
+        Stock::findOrfail($id)->update([
+            'producto_id' => $request->producto_id,
+            'cantidad' => $request->cantidad,
+            'ultima_actualizacion' => $request->ultima_actualizacion,
+            'localizacion' => $request->localizacion,
+        ]);
+
+        return redirect()->back()->with('status', 'Stock actualizado');
+
     }
 
 
-    public function destroy( Stock $stock)
+    public function destroy(int $id)
     {
+        $stock = Stock::findOrFail($id);
         $stock->delete();
-        return redirect()->route('stocks.index');
+
+        return redirect()->back()->with('status', 'Stock eliminado');
     }
 }

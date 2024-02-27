@@ -9,9 +9,17 @@ class Venta_Detalles extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $table = 'venta__detalles';
 
-    public function ventas() {
+    protected $fillable = [
+        'producto_id',
+        'precio_producto',
+        'cantidad',
+        'venta_id',
+    ];
+
+    public function ventas()
+    {
         return $this->hasMany(Venta::class);
     }
 }

@@ -7,23 +7,38 @@ use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
-    const NUMBER_OF_ITEMS_PER_PAGE = 25;
+    
     public function index()
     {
-        $clientes = Cliente::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
-        return inertia('Clientes/Index', ['clientes' => $clientes]);
+        $clientes = Cliente::get();
+        return view('cliente.index',  compact('clientes'));
 
     }
 
     public function create()
     {
-        return inertia('Clientes/create');
+        return view('cliente.create');
     }
 
     public function store(ClienteRequest $request)
     {
-        Cliente::create($request->validated());
-        return redirect()->route('clientes.index');
+        $request->validate([
+            'nombre' => 'required|max:100',
+            'direccion' => 'required|max:255|string',
+            'telefono'=>'required|max:255|string',
+            'cif'=> 'required|max:255|string',
+            'estado' => 'sometimes'
+        ]);
+
+        Cliente::create([
+            'nombre' => $request->nombre,
+            'direccion' => $request->direccion,
+            'telefono' => $request->telefono,
+            'cif' => $request->cif,
+            'estado' => $request->estado == true ? 1 : 0,
+        ]);
+
+        return redirect('clientes/create')->with('status', 'Cliente añadido');
     }
 
     public function show(Cliente $cliente)
@@ -31,21 +46,40 @@ class ClienteController extends Controller
         //
     }
 
-    public function edit(Cliente $cliente)
+    public function edit(int $id)
     {
-        return inertia('Cliente/Edit', ['cliente' => $cliente]);
+        $cliente = Cliente::findOrFail($id);
+        return view('cliente.edit', compact('cliente'));
     }
 
 
-    public function update(ClienteRequest $request, Cliente $cliente)
+    public function update(ClienteRequest $request, int $id)
     {
-        $cliente->update($request->validated());
-        return redirect()->route('clientes.index');
+        $request->validate([
+            'nombre' => 'required|max:100',
+            'direccion' => 'required|max:255|string',
+            'telefono'=>'required|max:255|string',
+            'cif'=> 'required|max:255|string',
+            'estado' => 'sometimes'
+        ]);
+
+        Cliente::findOrfail($id)->update([
+            'nombre' => $request->nombre,
+            'direccion' => $request->direccion,
+            'telefono' => $request->telefono,
+            'cif' => $request->cif,
+            'estado' => $request->estado == true ? 1 : 0,
+        ]);
+
+        return redirect()->back()->with('status', 'Cliente actualizado');
+
     }
 
-    public function destroy(Cliente $cliente)
+    public function destroy(int $id)
     {
+        $cliente = Cliente::findOrFail($id);
         $cliente->delete();
-        return redirect()->route('clientes.index');
+
+        return redirect()->back()->with('status', 'Cliente eliminado');
     }
 }

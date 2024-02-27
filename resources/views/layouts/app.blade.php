@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="es">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,9 +10,13 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        {{-- Styles --}}
+        <link href="css/app.css" rel="stylesheet" />
         <!-- Scripts -->
         @routes
-        <script src="{{ asset('js/app.js') }}" type="commonjs"></script>
+        <script src="{{ mix('/js/app.js') }}" type="commonjs" defer></script>
+        @inertiaHead
+
     </head>
     <body class="font-sans antialiased">
        @inertia

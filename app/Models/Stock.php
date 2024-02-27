@@ -9,7 +9,14 @@ class Stock extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $table = 'stocks';
+
+    protected  $fillable = [
+        'producto_id',
+        'cantidad',
+        'ultima_actualizacion',
+        'localizacion'
+    ];
 
     public function productos() {
         return $this->hasMany(Producto::class);

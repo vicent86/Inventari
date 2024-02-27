@@ -8,24 +8,41 @@ use App\Http\Requests\ProveedorRequest;
 
 class ProveedorController extends Controller
 {
-    const NUMBER_OF_ITEMS_PER_PAGE = 25;
+
     public function index()
     {
-        $proveedores = Proveedor::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
-        return inertia('Proveedores/Index', ['proveedores' => $proveedores]);
+        $proveedores = Proveedor::get();
+        return view('proveedor.index',  compact('proveedores'));
     }
 
     
     public function create()
     {
-        return inertia('Proveedores/Create');
+        return view('proveedor.create');
     }
 
     public function store(ProveedorRequest $request)
     {
 
-        Proveedor::create($request->validated());
-        return redirect()->route('proveedores.index');
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'direccion' => 'required|max:255|string',
+            'email' => 'required|nullable|email|unique:proveedores,email',
+            'cif'=>  'required|max:255|string',
+            'estado' => 'sometimes',
+            'cualificacion' => 'required|numeric|min:1|max:5',
+        ]);
+
+        Proveedor::create([
+            'nombre' => $request->nombre,
+            'direccion' => $request->direccion,
+            'email' => $request->email,
+            'cif' => $request->cif,
+            'estado' => $request->estado == true ? 1 : 0,
+            'cualificacion' => $request->cualificacion
+        ]);
+
+        return redirect('proveedores/create')->with('status', 'Proveedor añadido');
 
     }
 
@@ -33,22 +50,42 @@ class ProveedorController extends Controller
     {
         //
     }
-    public function edit(Proveedor $proveedor)
+    public function edit(Proveedor $proveedor,int $id)
     {
-        return inertia('Proveedores/Edit', ['proveedor' =>$proveedor]);
+        $proveedor = Proveedor::findOrFail($id);
+        return view('proveedor.edit', compact('proveedor'));
     }
 
-    public function update(ProveedorRequest $request, Proveedor $proveedor)
+    public function update(ProveedorRequest $request, int $id)
     {
-        $proveedor->update($request->validated());
-        return redirect()->route('proveedores.index');
+        $request->validate([
+            'nombre' => 'required|max:255',
+            'direccion' => 'required|max:255|string',
+            'email' => 'required|nullable|email|unique:proveedores,email',
+            'cif'=>  'required|max:255|string',
+            'estado' => 'sometimes',
+            'cualificacion' => 'required|numeric|min:1|max:5',
+        ]);
+
+        Proveedor::findOrfail($id)->update([
+            'nombre' => $request->nombre,
+            'direccion' => $request->direccion,
+            'email' => $request->email,
+            'cif' => $request->cif,
+            'estado' => $request->estado == true ? 1 : 0,
+            'cualificacion' => $request->cualificacion
+        ]);
+
+        return redirect()->back()->with('status', 'Proveedor actualizado');
     }
 
-    public function destroy(Proveedor $proveedor)
+    public function destroy(int $id)
     {
 
+        $proveedor = Proveedor::findOrFail($id);
         $proveedor->delete();
-        return redirect()->route('proveedores.index');
+
+        return redirect()->back()->with('status', 'Proveedor eliminado');
 
     }
 }

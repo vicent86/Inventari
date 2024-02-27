@@ -23,18 +23,18 @@ class ClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => ['required', 'string', 'max:100', Rule::unique(table: 'clientes', column: 'nombre')->ignore(id: request('cliente'), idColumn: 'id')],
-            'direccion' => ['required', 'string', 'max:100', Rule::unique(table: 'clientes', column: 'direccion')],
-            'telefono' => ['required', 'string', 'max:9', Rule::unique(table:'clientes', column:'telefono')],
-            'cif' => ['required', 'string', 'max:9', Rule::unique(table:'clientes', column: 'CIF')]
+            // 'nombre' => ['required', 'string', 'max:100', Rule::unique(table: 'clientes', column: 'nombre')->ignore(id: request('cliente'), idColumn: 'id')],
+            // 'direccion' => ['required', 'string', 'max:100', Rule::unique(table: 'clientes', column: 'direccion')],
+            // 'telefono' => ['required', 'string', 'max:9', Rule::unique(table:'clientes', column:'telefono')],
+            // 'cif' => ['required', 'string', 'max:9', Rule::unique(table:'clientes', column: 'CIF')]
         ];
     }
 
-    public function messages():array
-    {
-        return [
-            'nombre.unique' => __('El Cliente todavia existe')
-        ];
+    // public function messages():array
+    // {
+    //     return [
+    //         'nombre.unique' => __('El Cliente todavia existe')
+    //     ];
 
-    }
+    // }
 }

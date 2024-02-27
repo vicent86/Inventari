@@ -2,30 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
-use Illuminate\Http\Request;
+
 use App\Models\Venta;
+use App\Http\Requests\VentaRequest;
 
 class VentaController extends Controller
 {
-    const NUMBER_OF_ITEMS_PER_PAGE = 25;
     public function index()
     {
-        $ventas = Venta::paginate(self::NUMBER_OF_ITEMS_PER_PAGE);
-        return inertia('Ventas/Index', ['ventas' => $ventas]);
+        $ventas = Venta::get();
+        return view('venta.index', compact('ventas'));
 
     }
 
     public function create()
     {
-        $clientes = Cliente::all();
-        return inertia('Ventas/Create', ['clientes' => $clientes ]);
+        return view('venta.create');
     }
 
-    public function store(Request $request)
+    public function store(VentaRequest $request)
     {
-        Venta::create($request->validated());
-        return redirect()->route('Venta.index');
+        $request->validate([
+            'clienta_id' => 'required|max:10|int',
+            'precio_total' => 'required|numeric|min:0|regex:/^\d{1,6}(\.\d{1,2})?$/',
+            'fecha_venta'=>'required|date'
+        ]);
+
+        Venta::create([
+            'cliente_id' => $request->cliente_id,
+            'precio_total' => $request->precio_total,
+            'fecha_venta' => $request->fecha_venta,
+        ]);
+
+
+        return redirect('ventas/create')->with('status', 'Venta añadida');
     }
 
     public function show(Venta $venta)
@@ -33,20 +43,34 @@ class VentaController extends Controller
         //
     }
 
-    public function edit(Venta $venta)
+    public function edit(int $id)
     {
-        return inertia('Ventas/Edit', ['producto' =>$venta]);
+        $venta = Venta::findOrFail($id);
+        return view('venta.edit', compact('venta'));
     }
 
-    public function update(Request $request, Venta $venta)
+    public function update(VentaRequest $request, int $id)
     {
-        $venta->update($request->validated());
-        return redirect()->route('ventas.index');
+        $request->validate([
+            'clienta_id' => 'required|max:10|int',
+            'precio_total' => 'required|numeric|min:0|regex:/^\d{1,6}(\.\d{1,2})?$/',
+            'fecha_venta'=>'required|date'
+        ]);
+
+        Venta::findOrFail($id)->update([
+            'cliente_id' => $request->cliente_id,
+            'precio_total' => $request->precio_total,
+            'fecha_venta' => $request->fecha_venta,
+        ]);
+
+        return redirect()->back()->with('status', 'Venta actualizada');
     }
 
-    public function destroy(Venta $venta)
+    public function destroy(int $id)
     {
+        $venta = Venta::findOrFail($id);
         $venta->delete();
-        return redirect()->route('ventas.index');
+
+        return redirect()->back()->with('status', 'Venta eliminada');
     }
 }

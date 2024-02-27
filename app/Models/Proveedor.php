@@ -9,7 +9,16 @@ class Proveedor extends Model
 {
     use HasFactory;
 
-    protected $guarded  = [];
+    protected $table = 'proveedores';
+
+    protected $fillable = [
+        'nombre',
+        'direccion',
+        'email',
+        'cif',
+        'estado',
+        'cualificacion',
+    ];
 
     public function productos() {
         return $this->hasMany(Producto::class);

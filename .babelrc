@@ -9,10 +9,12 @@
                 "not op_mini all"
             ]
         },
+        "useBuiltIns": "usage", 
+        "corejs": 3,
         "debug": true
       }
     ]],
-    "plugins": ["@babel/plugin-transform-modules-commonjs"]
+    "plugins": ["@babel/plugin-syntax-dynamic-import"]
 }
   
   

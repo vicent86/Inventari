@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Venta extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $table = 'ventas';
+
+    protected $fillable = [
+        'cliente_id',
+        'precio_total',
+        'fecha_venta'
+    ];
 
     public function clientes() {
         return $this->hasMany(Cliente::class);
