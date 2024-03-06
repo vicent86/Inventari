@@ -23,10 +23,10 @@ class Pago extends Model
     public function totalPago()
     {
         $this->total = $this->importe + ($this->importe * $this->iva / 100);
-        $this-> total;
+       return $this;
     }
 
-    public function ventas(){
-        return $this->belongsTo(Venta::class);
+    public function venta(){
+        return $this->belongsTo(Venta::class, 'id_venta');
     }
 }

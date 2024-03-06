@@ -18,8 +18,8 @@ class Venta_Detalles extends Model
         'venta_id',
     ];
 
-    public function ventas()
+    public function venta()
     {
-        return $this->hasMany(Venta::class);
+        return $this->hasMany(Venta::class, 'id', 'venta_id');
     }
 }

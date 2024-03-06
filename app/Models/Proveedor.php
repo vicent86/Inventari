@@ -20,7 +20,7 @@ class Proveedor extends Model
         'cualificacion',
     ];
 
-    public function productos() {
+    public function producto() {
         return $this->hasMany(Producto::class);
     }
 }

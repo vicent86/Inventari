@@ -19,7 +19,7 @@ class Cliente extends Model
         'estado'
     ];
 
-    public function ventas(){
+    public function venta(){
         return $this->hasMany(Venta::class);
     }
 }

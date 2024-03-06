@@ -22,20 +22,20 @@ class Producto extends Model
         'iva'
     ];
 
-    public function categorias()
+    public function categoria()
     {
-        return $this->hasMany(Categoria::class);
+        return $this->belongsTo(Categoria::class);
     }
 
-    public function proveedores(){
-        return $this->hasMany(Proveedor::class);
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class,'id_proveedor');
     }
-    public function ventaDetalles(){
-        return $this->hasMany(Venta_Detalles::class);
-    }
+    // public function ventaDetalles(){
+    //     return $this->hasMany(Venta_Detalles::class);
+    // }
 
-    public function stock() {
-        return $this->hasMany(Stock::class);
-    }
+    // public function stock() {
+    //     return $this->hasMany(Stock::class);
+    // }
 
 }

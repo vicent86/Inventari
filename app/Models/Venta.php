@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Venta extends Model
 {
     use HasFactory;
-    protected $table = 'ventas';
+    protected $table = "ventas";
 
     protected $fillable = [
         'cliente_id',
@@ -16,12 +16,13 @@ class Venta extends Model
         'fecha_venta'
     ];
 
-    public function clientes() {
-        return $this->hasMany(Cliente::class);
+    
+    public function cliente() {
+        return $this->belongsTo(Cliente::class);
     }
 
-    public function pagos() {
-        return $this->hasMany(Pago::class);
+    public function pago() {
+        return $this->belongsTo(Pago::class);
     }
 
     public function ventaDetalles() {
