@@ -23,7 +23,7 @@ class CategoriaController extends Controller
 
     public function create()
     {
-        return view('categoria.create');
+        //return view('categoria.create');
     }
 
     public function store(CategoriaRequest $request)
@@ -43,13 +43,16 @@ class CategoriaController extends Controller
 
     //     return redirect('categories/create')->with('status', 'Categoria añadida');
 
-        $categoria = new Categoria;
-        $categoria->nombre= $request->input('nombre');
-        $categoria->descripcion =  $request->input('descripcion');
-        $categoria->estado = $request->has('estado');
-        $categoria->save();
+        // $categoria = new Categoria;
+        // $categoria->nombre= $request->input('nombre');
+        // $categoria->descripcion =  $request->input('descripcion');
+        // $categoria->estado = $request->has('estado');
+        // $categoria->save();
 
-        return response()->json($categoria, 201);
+        // return response()->json($categoria, 201);
+
+        $categoria  = Categoria::create($request->validated());
+        return new CategoriaResource($categoria);
     }
     public function show(Categoria $categoria)
     {
@@ -78,8 +81,10 @@ class CategoriaController extends Controller
 
         // return redirect()->back()->with('status', 'Categoria actualizada');
 
-        $categoria->update($request->all());
-        return response()->json($categoria, 200);
+        $categoria->update($request->validated());
+        //return response()->json($categoria, 200);
+
+        return new CategoriaResource($categoria);
 
     }
     public function destroy(Categoria $categoria)
@@ -92,7 +97,8 @@ class CategoriaController extends Controller
 
         
         $categoria->delete();
-        return response()->json(null, 204);
+        // return response()->json(null, 204);
+        return response()->noContent();
 
     }
 }

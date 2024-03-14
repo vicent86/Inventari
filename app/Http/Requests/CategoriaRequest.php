@@ -23,8 +23,9 @@ class CategoriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'nombre' => ['required', 'string', 'max:100', Rule::unique(table: 'categorias', column: 'nombre')->ignore(id: request('categoria'), idColumn: 'id')],
-            // 'descripcion' => ['required', 'string', 'max:400', Rule::unique(table: 'categorias', column: 'descripcion')]
+            'nombre' => ['required', 'string', 'max:100', Rule::unique(table: 'categorias', column: 'nombre')->ignore(id: request('categoria'), idColumn: 'id')],
+            'descripcion' => ['required', 'string', 'max:400'],
+            'estado' => ['required', Rule::in(['Activo', 'Inactivo'])],
         ];
     }
 

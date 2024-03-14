@@ -19,6 +19,8 @@
 
     </head>
     <body class="font-sans antialiased">
-       @inertia
+       {{-- @inertia --}}
+       <div class="min-h-screen bg-gray" id="app">
+       </div>
     </body>
 </html>

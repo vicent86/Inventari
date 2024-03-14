@@ -18,7 +18,7 @@
 <script>
 const { useForm } = require('@inertiajs/vue3');
 const AuthenticatedLayout = require('@/Layouts/AuthenticatedLayout.vue');
-const CategoryForm = require('@/Components/Categories/Form.vue');
+const CategoryForm = require('@/Components/Categorias/CategoriasIndex.vue');
 
 module.exports =  {
     name: 'CategoryEdit',
