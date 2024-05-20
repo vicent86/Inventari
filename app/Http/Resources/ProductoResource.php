@@ -17,10 +17,13 @@ class ProductoResource extends JsonResource
         return [
             'id' => $this->id,
             'nombre' => $this->nombre,
-            'imagen' => asset('storage/images/' . $this->imagen),
+            'imagen' => asset('storage/' . $this->imagen),
+            'descripcion' => $this->descripcion,
             'precio' => $this->precio,
-            'categoria' => new CategoriaResource($this->categoria),
-            'proveedor' => new ProveedorResource($this->proveedor),
+            'categoria_id' => $this->categoria_id,
+            'estado' =>  $this->estado ? "Activo" : "Inactivo",
+            'id_proveedor' => $this->id_proveedor,
+            'iva' => $this->iva,
         ];
     }
 }

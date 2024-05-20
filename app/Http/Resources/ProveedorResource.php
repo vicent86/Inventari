@@ -15,13 +15,14 @@ class ProveedorResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id ' => $this->id,
+            'id' => $this->id,
             'nombre' => $this->nombre,
             'direccion' => $this->direccion,
             'email' => $this->email,
             'cif' => $this->cif,
-            'estado' => $this->estado,
+            'estado' =>  $this->estado ? "Activo" : "Inactivo",
             'cualificacion' => $this->cualificacion
         ];
     }
+    
 }
