@@ -20,7 +20,7 @@ class ClienteResource extends JsonResource
             'direccion'=>$this->direccion,
             'telefono'=>$this->telefono,
             'cif' => $this->cif,
-            'estado' =>$this->estado
+            'estado' =>  $this->estado ? "Activo" : "Inactivo",
         ];
     }
 }

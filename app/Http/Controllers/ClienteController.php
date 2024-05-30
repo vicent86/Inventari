@@ -26,30 +26,13 @@ class ClienteController extends Controller
 
     public function store(ClienteRequest $request)
     {
-        // $request->validate([
-        //     'nombre' => 'required|max:100',
-        //     'direccion' => 'required|max:255|string',
-        //     'telefono'=>'required|max:255|string',
-        //     'cif'=> 'required|max:255|string',
-        //     'telefono' => 'sometimes'
-        // ]);
-
-        // Cliente::create([
-        //     'nombre' => $request->nombre,
-        //     'direccion' => $request->direccion,
-        //     'telefono' => $request->telefono,
-        //     'cif' => $request->cif,
-        //     'telefono' => $request->telefono == true ? 1 : 0,
-        // ]);
-
-        // return redirect('clientes/create')->with('status', 'Cliente añadido');
-
+        
         $cliente = new Cliente;
         $cliente->nombre= $request->input('nombre');
         $cliente->direccion =  $request->input('direccion');
         $cliente->telefono = $request->input('telefono');
         $cliente->cif=$request->input('cif');
-        $cliente->estado = $request->has('estado');
+        $cliente->estado = $request->input('estado') == 'true' ? true : false;
         $cliente->save();
 
         return response()->json($cliente, 201);
@@ -69,24 +52,7 @@ class ClienteController extends Controller
 
     public function update(ClienteRequest $request, Cliente $cliente)
     {
-        // $request->validate([
-        //     'nombre' => 'required|max:100',
-        //     'direccion' => 'required|max:255|string',
-        //     'telefono'=>'required|max:255|string',
-        //     'cif'=> 'required|max:255|string',
-        //     'estado' => 'sometimes'
-        // ]);
-
-        // Cliente::findOrfail($id)->update([
-        //     'nombre' => $request->nombre,
-        //     'direccion' => $request->direccion,
-        //     'telefono' => $request->telefono,
-        //     'cif' => $request->cif,
-        //     'estado' => $request->estado == true ? 1 : 0,
-        // ]);
-
-        // return redirect()->back()->with('status', 'Cliente actualizado');
-
+        
         $cliente->update($request->all());
         return response()->json($cliente, 200);
 
@@ -94,11 +60,7 @@ class ClienteController extends Controller
 
     public function destroy(Cliente $cliente)
     {
-    //     $cliente = Cliente::findOrFail($id);
-    //     $cliente->delete();
-
-    //     return redirect()->back()->with('status', 'Cliente eliminado');
-
+   
         $cliente->delete();
         return response()->json(null, 204);
     }

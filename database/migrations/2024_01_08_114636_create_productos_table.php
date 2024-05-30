@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('categoria_id');
             $table->boolean('estado');
             $table->unsignedInteger('id_proveedor');
-            $table->decimal('IVA',8,2);
+            $table->decimal('iva',8,2);
             $table->timestamps();
         });
     }

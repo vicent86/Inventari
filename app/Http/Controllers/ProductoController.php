@@ -51,6 +51,7 @@ class ProductoController extends Controller
         } else {
             $producto->imagen = null;
         }
+       
 
         $producto->descripcion = $request->descripcion;
         $producto->precio = $request->precio;
